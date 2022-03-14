@@ -10,8 +10,13 @@ This setup uses dotbot to manage the dotfiles.
 ## Setup
 ``` bash
 > git clone https://github.com/nstoik/dotfiles.git --recursive
-> cd dotfiles && ./install
+> cd dotfiles
+> sudo chmod +x install
+> ./install
+
 ```
+
+If there are errors when running the install script, it can mean that files you are trying to symlink to are already present. Remove the file in the current directory and try  the install script again.
 
 ## ZSH and Oh My ZSH
 ZSH and ohmyzsh needs to be installed on the computer
