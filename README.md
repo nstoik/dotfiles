@@ -8,8 +8,8 @@ This setup uses dotbot to manage the dotfiles.
 [Dotbot Blog for setup](https://www.elliotdenolf.com/posts/bootstrap-your-dotfiles-with-dotbot)
 
 ## Setup
-```
-> git clone git@github.com:nstoik/dotfiles.git --recursive
+``` bash
+> git clone https://github.com/nstoik/dotfiles.git --recursive
 > cd dotfiles && ./install
 ```
 
