@@ -1,0 +1,8 @@
+[user]
+    email = "nelsonstoik@gmail.com"
+    name = "Nelson Stoik"
+
+[core]
+    # override the default pager. 
+    #  https://stackoverflow.com/questions/2183900/how-do-i-prevent-git-diff-from-using-a-pager/14118014#14118014
+    pager = "less -F -X"
