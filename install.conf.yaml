@@ -8,6 +8,12 @@
     ~/.bashrc: bashrc
     ~/.zshrc: zshrc
     ~/.gitconfig: gitconfig
+    ~/.ssh/config:
+      create: true
+      path: ssh/config
+    ~/.ssh/authorized_keys:
+      create: true
+      path: ssh/authorized_keys
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

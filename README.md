@@ -22,3 +22,6 @@ If there are errors when running the install script, it can mean that files you 
 ZSH and ohmyzsh needs to be installed on the computer
 
 [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
+
+## SSH
+Configures the SSH authorized_keys file and the SSH config file
