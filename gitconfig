@@ -8,4 +8,4 @@
     pager = "less -F -X"
 
     # set the autocrlf setting to true
-    #autocrlf = true
+    autocrlf = true
