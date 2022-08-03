@@ -1,3 +1,12 @@
 Host pi4dev
   HostName pi4-dev.home.stechsolutions.ca
   User ubuntu
+
+Host *.home.stechsolutions.ca
+  User nelson
+
+# Default options for all hosts
+Host *
+  IgnoreUnknown UseKeychain
+  AddKeysToAgent yes
+  UseKeychain yes
