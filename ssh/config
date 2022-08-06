@@ -1,3 +1,8 @@
+# general config for ssh
+UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed
+HashKnownHosts no
+CheckHostIP no
+
 Host pi4dev
   HostName pi4-dev.home.stechsolutions.ca
   User ubuntu
