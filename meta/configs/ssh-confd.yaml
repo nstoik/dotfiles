@@ -1,7 +1,7 @@
 - link:
     /etc/ssh/sshd_config.d/sshd_custom_override.conf:
       create: true
-      path: ssh/sshd_custom_override.conf
+      path: ssh/sshd/sshd_custom_override.conf
 
 - shell:
     - command: systemctl restart ssh
