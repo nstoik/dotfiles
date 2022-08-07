@@ -44,7 +44,7 @@ ZSH and ohmyzsh needs to be installed on the computer.
 
 [ohmyzsh webpage](https://github.com/ohmyzsh/ohmyzsh)
 
-The [zsh config](meta\configs\zsh.yaml) attempts to install ohmyzsh if it is not already present
+The [zsh config](meta/configs/zsh.yaml) attempts to install ohmyzsh if it is not already present
 ## SSH and enforcing passwordless login
 Passwordless login is enforced by copying the following configuration file.
 
