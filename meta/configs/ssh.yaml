@@ -1,0 +1,10 @@
+- link:
+    ~/.ssh/config:
+      create: true
+      path: ssh/config
+    ~/.ssh/authorized_keys:
+      create: true
+      path: ssh/authorized_keys
+    ~/.ssh/known_hosts_fixed:
+      create: true
+      path: ssh/known_hosts_fixed

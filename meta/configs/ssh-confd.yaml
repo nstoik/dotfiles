@@ -1,0 +1,11 @@
+- link:
+    /etc/ssh/sshd_config.d/sshd_custom_override.conf:
+      create: true
+      path: ssh/sshd_custom_override.conf
+
+- shell:
+    - command: systemctl restart ssh
+      description: Restarting SSH Daemon
+      quiet: true
+      stdout: true
+      stderr: true
