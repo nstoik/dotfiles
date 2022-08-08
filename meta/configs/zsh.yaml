@@ -9,3 +9,10 @@
       quiet: true
       stdout: true
       stderr: true
+    # test if the github repo 'https://github.com/zsh-users/zsh-autosuggestions' 
+    # is already cloned. If yes, pull latest changes. If not, clone it.
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull) || git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+      description: Cloning zsh-autosuggestions plugin
+      quiet: true
+      stdout: true
+      stderr: true
