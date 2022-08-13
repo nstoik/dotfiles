@@ -72,13 +72,11 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-# zsh-history-substring-search should be loaded last.
-plugins=(git ssh-agent zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search)
+plugins=(git ssh-agent zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete)
 
 # zsh-autosuggestions plugin configuration
 # https://github.com/zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00af87"
-bindkey '^ ' autosuggest-accept
 
 # ssh-agent plugin configuration
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent

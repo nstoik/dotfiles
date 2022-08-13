@@ -16,10 +16,10 @@
       quiet: true
       stdout: false
       stderr: true
-    # test if the github repo 'https://github.com/zsh-users/zsh-history-substring-search' 
+    # test if the github repo 'https://github.com/marlonrichert/zsh-autocomplete' 
     # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search pull) || git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
-      description: Adding zsh-history-substring-search plugin
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete pull) || git clone https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+      description: Adding zsh-autocomplete plugin
       quiet: true
       stdout: false
       stderr: true
