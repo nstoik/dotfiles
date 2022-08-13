@@ -3,6 +3,8 @@
       create: true
       path: ssh/sshd/sshd_custom_override.conf
 
+- clean: ['/etc/ssh/sshd_config.d']
+
 - shell:
     - command: systemctl restart ssh
       description: Restarting SSH Daemon
