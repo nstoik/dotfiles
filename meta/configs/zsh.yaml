@@ -12,7 +12,21 @@
     # test if the github repo 'https://github.com/zsh-users/zsh-autosuggestions' 
     # is already cloned. If yes, pull latest changes. If not, clone it.
     - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull) || git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-      description: Cloning zsh-autosuggestions plugin
+      description: Adding zsh-autosuggestions plugin
       quiet: true
-      stdout: true
+      stdout: false
+      stderr: true
+    # test if the github repo 'https://github.com/zsh-users/zsh-history-substring-search' 
+    # is already cloned. If yes, pull latest changes. If not, clone it.
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search pull) || git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+      description: Adding zsh-history-substring-search plugin
+      quiet: true
+      stdout: false
+      stderr: true
+    # test if the github repo 'https://github.com/zsh-users/zsh-syntax-highlighting' 
+    # is already cloned. If yes, pull latest changes. If not, clone it.
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting pull) || git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+      description: Adding zsh-syntax-highlighting plugin
+      quiet: true
+      stdout: false
       stderr: true
