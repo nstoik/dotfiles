@@ -72,7 +72,14 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git ssh-agent zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete)
+plugins=(
+  docker
+  git
+  ssh-agent
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-autocomplete
+  )
 
 # zsh-autosuggestions plugin configuration
 # https://github.com/zsh-users/zsh-autosuggestions
