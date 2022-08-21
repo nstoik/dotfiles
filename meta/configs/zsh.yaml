@@ -2,10 +2,20 @@
     ~/.zshrc:
       force: true
       path: shells/zsh/zshrc
+    ~/.p10k.zsh:
+      force: true
+      path: shells/zsh/p10k.zsh
 
 - shell:
+    # Install oh-my-zsh
     - command: test ! -d $HOME/.oh-my-zsh && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended || echo "Oh My Zsh already installed, skipping installation"
       description: Installing Oh My Zsh
+      quiet: true
+      stdout: true
+      stderr: true
+    # Install zsh theme powerlevel10k
+    - command: (test -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k && git -C $HOME/.oh-my-zsh/custom/themes/powerlevel10k pull) || git clone --depth=1 https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+      description: Installing Powerlevel10k theme
       quiet: true
       stdout: true
       stderr: true
