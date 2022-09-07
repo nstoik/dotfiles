@@ -21,21 +21,21 @@
       stderr: true
     # test if the github repo 'https://github.com/zsh-users/zsh-autosuggestions' 
     # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull) || git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull) || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
       description: Adding zsh-autosuggestions plugin
       quiet: true
       stdout: false
       stderr: true
     # test if the github repo 'https://github.com/marlonrichert/zsh-autocomplete' 
     # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete pull) || git clone https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete pull) || git clone --depth=1 https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
       description: Adding zsh-autocomplete plugin
       quiet: true
       stdout: false
       stderr: true
     # test if the github repo 'https://github.com/zsh-users/zsh-syntax-highlighting' 
     # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting pull) || git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting pull) || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
       description: Adding zsh-syntax-highlighting plugin
       quiet: true
       stdout: false
