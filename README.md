@@ -39,12 +39,12 @@ You can run these installation commands safely multiple times.
 
 If there are errors when running the install script, it can mean that files you are trying to symlink to are already present. Remove the file in the current directory and try the install script again.
 
-## ZSH and Oh My ZSH
-ZSH and ohmyzsh needs to be installed on the computer.
+## ZSH
+ZSH needs to be installed on the computer.
 
-[ohmyzsh webpage](https://github.com/ohmyzsh/ohmyzsh)
+The installed .zshrc file uses [zsh-snap](https://github.com/marlonrichert/zsh-snap). This will download the plugins as needed.
 
-The [zsh config](meta/configs/zsh.yaml) attempts to install ohmyzsh if it is not already present
+The [zsh config](meta/configs/zsh.yaml)
 ## SSH and enforcing passwordless login
 Passwordless login is enforced by copying the following configuration file.
 

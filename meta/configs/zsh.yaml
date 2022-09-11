@@ -5,38 +5,3 @@
     ~/.p10k.zsh:
       force: true
       path: shells/zsh/p10k.zsh
-
-- shell:
-    # Install oh-my-zsh
-    - command: test ! -d $HOME/.oh-my-zsh && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended || echo "Oh My Zsh already installed, skipping installation"
-      description: Installing Oh My Zsh
-      quiet: true
-      stdout: true
-      stderr: true
-    # Install zsh theme powerlevel10k
-    - command: (test -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k && git -C $HOME/.oh-my-zsh/custom/themes/powerlevel10k pull) || git clone --depth=1 https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-      description: Installing Powerlevel10k theme
-      quiet: true
-      stdout: true
-      stderr: true
-    # test if the github repo 'https://github.com/zsh-users/zsh-autosuggestions' 
-    # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull) || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-      description: Adding zsh-autosuggestions plugin
-      quiet: true
-      stdout: false
-      stderr: true
-    # test if the github repo 'https://github.com/marlonrichert/zsh-autocomplete' 
-    # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-autocomplete pull) || git clone --depth=1 https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-      description: Adding zsh-autocomplete plugin
-      quiet: true
-      stdout: false
-      stderr: true
-    # test if the github repo 'https://github.com/zsh-users/zsh-syntax-highlighting' 
-    # is already cloned. If yes, pull latest changes. If not, clone it.
-    - command: (test -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git -C $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting pull) || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-      description: Adding zsh-syntax-highlighting plugin
-      quiet: true
-      stdout: false
-      stderr: true
