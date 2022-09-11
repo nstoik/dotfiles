@@ -13,8 +13,12 @@ It is configured in the [advanced mode](https://github.com/anishathalye/dotbot/w
 > git clone https://github.com/nstoik/dotfiles.git --recursive
 > cd dotfiles
 > sudo chmod +x install-profile install-standalone
-
 ```
+### Nerdfonts
+TODO: Add instructions for installing nerdfonts
+
+* [GitHub repo](https://github.com/ryanoasis/nerd-fonts)
+* [CascadiaCode Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode)
 ## Usage
 For installing a predefined profile:
 
@@ -46,6 +50,8 @@ The installed .zshrc file uses [zsh-snap](https://github.com/marlonrichert/zsh-s
 
 The [zsh config](meta/configs/zsh.yaml)
 ## SSH and enforcing passwordless login
+TODO: Remove this section as it should be done via configuration management, not using dotfiles. Eg. ansible.
+
 Passwordless login is enforced by copying the following configuration file.
 
 ``` bash
