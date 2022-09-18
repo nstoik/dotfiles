@@ -5,6 +5,10 @@
     ~/.ssh/authorized_keys:
       create: true
       path: ssh/authorized_keys
+      force: true
+      # only copy the authorized_keys file if the environment variable
+      # DOTBOT_SKIP_SSH_AUTHORIZED_FILE is not set
+      if: '[ -z ${DOTBOT_SKIP_SSH_AUTHORIZED_FILE+x} ]'
     ~/.ssh/known_hosts_fixed:
       create: true
       path: ssh/known_hosts_fixed
