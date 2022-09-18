@@ -41,15 +41,12 @@ fi
 setopt SHARE_HISTORY
 # append to history
 setopt APPEND_HISTORY
-# adds commands as they are typed, not at shell exit
-setopt INC_APPEND_HISTORY
 # removes blank lines from history
 setopt HIST_REDUCE_BLANKS
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
-SAVEHIST=1000
-bindkey -e
+SAVEHIST=900
 
 # Autocomplete for pipx
 znap function _python_argcomplete pipx  'eval "$( register-python-argcomplete pipx  )"'
