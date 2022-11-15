@@ -20,12 +20,16 @@ zstyle :omz:plugins:ssh-agent lazy yes
 zstyle :omz:plugins:ssh-agent lifetime 1h
 zstyle :omz:plugins:ssh-agent quiet yes
 
+# zsh-window-title plugin configuration
+ZSH_WINDOW_TITLE_DIRECTORY_DEPTH=3
+
 # `znap source` automatically downloads and starts your plugins.
 znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
 znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,git,pipenv,ssh-agent,sudo}
+znap source olets/zsh-window-title
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
