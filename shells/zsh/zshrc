@@ -44,7 +44,7 @@ fi
 # share history across multiple zsh sessions
 setopt SHARE_HISTORY
 # append to history
-setopt APPEND_HISTORY
+# setopt APPEND_HISTORY
 # removes blank lines from history
 setopt HIST_REDUCE_BLANKS
 # remove older duplicates
