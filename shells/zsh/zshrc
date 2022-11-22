@@ -28,7 +28,7 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,git,pipenv,ssh-agent,sudo}
+znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,git,ssh-agent,sudo}
 znap source olets/zsh-window-title
 
 
