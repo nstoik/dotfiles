@@ -63,16 +63,10 @@ The [ssh config](meta/configs/ssh.yaml) will link the following files:
     * eg. `DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh` will skip linking the authorized_keys file.
     * otherwise the file linking will be forced and overwrite the existing file if it exists.
 
-## SSH and enforcing passwordless login
-TODO: Remove this section as it should be done via configuration management, not using dotfiles. Eg. ansible.
 
-Passwordless login is enforced by copying the following configuration file.
 
-``` bash
-~/.dotfiles$ ./install-standalone ssh-confd-sudo
 ```
 
-This config is not included in any of the profiles and needs to be run manually. This is because the required ssh keys need to be copied to the server first.
 
 # Git
 The [git config](meta/configs/git.yaml) will link the following files:
@@ -116,8 +110,6 @@ meta/configs
 │   ├── authorized_keys
 │   ├── config
 │   ├── known_hosts_fixed
-│   └── sshd
-│       └── sshd_custom_override.conf
 └── tools
     └── git
         └── gitconfig
