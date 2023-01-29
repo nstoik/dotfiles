@@ -1,5 +1,5 @@
 # general config for ssh
-UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed
+UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed ~/.ssh/known_hosts_ansible
 HashKnownHosts no
 CheckHostIP no
 

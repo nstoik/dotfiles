@@ -57,13 +57,26 @@ The [ssh config](meta/configs/ssh.yaml) will link the following files:
 * [ssh config](ssh/config) to `~/.ssh/config`
 * [ssh known_hosts_fixed](ssh/known_hosts_fixed) to `~/.ssh/known_hosts_fixed`
     * This file is used to store the known_hosts that is manually maintained.
+* [ssh known_hosts_ansible](ssh/known_hosts_ansible) to `~/.ssh/known_hosts_fixed`
+    * This file is used to store the known_hosts_ansible file that is managed by ansible and my [infrastructure repo](https://github.com/nstoik/infrastructure)
+    * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE` is set.
 * [ssh authorized_keys](ssh/authorized_keys) to `~/.ssh/authorized_keys`
     * This file is used to store the authorized_keys that are allowed to connect to the computer over ssh.
     * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_AUTHORIZED_FILE` is set.
-    * eg. `DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh` will skip linking the authorized_keys file.
-    * otherwise the file linking will be forced and overwrite the existing file if it exists.
 
+## Examples
+``` bash
+# Normal installation
+~/.dotfiles$ ./install-standalone ssh
 
+# Skipping the Known_hosts_ansible file
+~/.dotfiles$ DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE=1 ./install-standalone ssh
+
+# Skipping the authorized_keys file
+~/.dotfiles$ DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh
+
+# Skipping both files
+~/.dotfiles$ DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE=1 DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh
 
 ```
 
@@ -109,6 +122,7 @@ meta/configs
 ├── ssh
 │   ├── authorized_keys
 │   ├── config
+│   ├── known_hosts_ansible
 │   ├── known_hosts_fixed
 └── tools
     └── git
