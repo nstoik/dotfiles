@@ -42,9 +42,13 @@ fi
 
 # ZSH History Options
 # share history across multiple zsh sessions
-setopt SHARE_HISTORY
+# setopt SHARE_HISTORY
+# save history but don't always read history file
+# history can be manually read in from other terminals with the command `fc -RI`
+# history can be manually saved to other terminals with the command `fc -AI`
+setopt INC_APPEND_HISTORY_TIME
 # append to history
-# setopt APPEND_HISTORY
+setopt APPEND_HISTORY
 # removes blank lines from history
 setopt HIST_REDUCE_BLANKS
 # remove older duplicates
