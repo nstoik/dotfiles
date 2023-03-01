@@ -70,7 +70,11 @@ add-zsh-hook preexec set-title-preexec
 
 set-title-precmd() {
   local title
-  title=$(print -P "%2~")
+  # get the last 2 directories of the current path
+  local dir=$(print -P "%2~")
+  # if the current directory is 3 or more directories deep, replace the middle directories with ".../" and leave the last 2 directories
+  title=$(print -P "%(3~*.../$dir*$dir)")
+  # add the ssh hostname to the title if there is a ssh connection
   if [[ -n "$SSH_CONNECTION" ]]; then
     title="$(hostname)@$title"
   fi
@@ -79,7 +83,10 @@ set-title-precmd() {
 
 set-title-preexec() {
   local title
-  title=$(print -P "%2~ - ${1[(w)1]}")
+  # get the last 2 directories of the current path and the command being executed
+  local dir=$(print -P "%2~ - ${1[(w)1]}")
+  # if the current directory is 3 or more directories deep, replace the middle directories with ".../" and leave the last 2 directories
+  title=$(print -P "%(3~*.../$dir*$dir)")
   if [[ -n "$SSH_CONNECTION" ]]; then
     title="$(hostname)@$title"
   fi
