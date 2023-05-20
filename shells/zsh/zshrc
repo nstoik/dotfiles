@@ -21,9 +21,7 @@ zstyle :omz:plugins:ssh-agent lifetime 1h
 zstyle :omz:plugins:ssh-agent quiet yes
 
 # `znap source` automatically downloads and starts your plugins.
-# use a fork of zsh-autocomplete that rolls back to the last working version
-# znap source marlonrichert/zsh-autocomplete
-znap source nstoik/zsh-autocomplete
+znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
