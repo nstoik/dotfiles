@@ -34,7 +34,7 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,git,ssh-agent,sudo}
+znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo}
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
