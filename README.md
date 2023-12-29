@@ -57,7 +57,7 @@ The [ssh config](meta/configs/ssh.yaml) will link the following files:
 * [ssh config](ssh/config) to `~/.ssh/config`
 * [ssh known_hosts_fixed](ssh/known_hosts_fixed) to `~/.ssh/known_hosts_fixed`
     * This file is used to store the known_hosts that is manually maintained.
-* [ssh known_hosts_ansible](ssh/known_hosts_ansible) to `~/.ssh/known_hosts_fixed`
+* [ssh known_hosts_ansible](ssh/known_hosts_ansible) to `~/.ssh/known_hosts_ansible`
     * This file is used to store the known_hosts_ansible file that is managed by ansible and my [infrastructure repo](https://github.com/nstoik/infrastructure)
     * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE` is set.
 * [ssh authorized_keys](ssh/authorized_keys) to `~/.ssh/authorized_keys`
