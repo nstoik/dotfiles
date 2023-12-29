@@ -34,8 +34,6 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-# https://github.com/sunlei/zsh-ssh
-znap source sunlei/zsh-ssh
 znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo}
 
 
