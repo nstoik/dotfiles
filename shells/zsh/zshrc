@@ -3,6 +3,15 @@
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/.Git/zsh-snap
 
+# The below 5 lines gets rid of a warning when launching zsh of no such file or directory: /completions/_docker
+# The error was caused by the following line in the Github repo for oh-my-zsh:
+# https://github.com/ohmyzsh/ohmyzsh/blob/667fdbf7746acc90aa29b316ef711180e7917aa2/plugins/docker/docker.plugin.zsh#L60
+
+# Set the environment variable ZSH_CACHE_DIR
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+# make sure the subdirectory 'completions' exists
+mkdir -p "$ZSH_CACHE_DIR/completions"
+
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
 
 
