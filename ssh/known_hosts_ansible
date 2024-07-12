@@ -14,5 +14,13 @@ pve3.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPdXyIdHGTy06RSX
 # Proxmox Host: pve
 10.10.5.9 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtNCksUkPxDwt/8DZ409UQkqRyEE6bcERdjvFl7guY9 
 
-proxmox.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtNCksUkPxDwt/8DZ409UQkqRyEE6bcERdjvFl7guY9 
+proxmox.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtNCksUkPxDwt/8DZ409UQkqRyEE6bcERdjvFl7guY9
+
+# Proxmox VM: storage
+storage.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlYPH9OSoL57d1dRuOxHvUNeK6/wYM+o7lWRkMUSQ6Z 
+
+storage ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlYPH9OSoL57d1dRuOxHvUNeK6/wYM+o7lWRkMUSQ6Z 
+
+10.10.5.26 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlYPH9OSoL57d1dRuOxHvUNeK6/wYM+o7lWRkMUSQ6Z 
+
 
