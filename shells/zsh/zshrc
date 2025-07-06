@@ -15,14 +15,14 @@ mkdir -p "$ZSH_CACHE_DIR/completions"
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
 
 # OS-specific PATH additions
-# Check if the system is Debian based using /etc/os-release
 if [[ -f /etc/os-release ]]; then
-  # Read the ID_LIKE field from /etc/os-release
-  # We use grep and a regex to extract the ID_LIKE value
-  # The '[[ "$os_id_like" =~ "debian" ]]' checks if "debian" is anywhere in the ID_LIKE string
-    os_id_like=$(grep -Po "(?<=^ID_LIKE=).*" /etc/os-release | tr -d '"')
-    if [[ "$os_id_like" =~ "debian" || "$(grep -Po "(?<=^ID=).*" /etc/os-release | tr -d '"')" == "debian" ]]; then
-        # This machine is Debian-based (e.g., Debian, Ubuntu, Proxmox, Mint, etc.)
+    # Read the ID field
+    local os_id=$(grep -Po "(?<=^ID=).*" /etc/os-release | tr -d '"')
+
+    # Check if ID is exactly 'debian'
+    # This will include pure Debian and Proxmox (which identifies as ID=debian)
+    # It will explicitly exclude Ubuntu (which identifies as ID=ubuntu)
+    if [[ "$os_id" == "debian" ]]; then
         export PATH="$PATH:/usr/sbin:/usr/local/sbin"
     fi
 fi
