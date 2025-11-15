@@ -35,6 +35,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # zsh-autosuggestions plugin configuration
 # https://github.com/zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00af87"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ssh-agent plugin configuration
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
@@ -47,7 +48,7 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo}
+znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo,history}
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -56,6 +57,9 @@ znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-a
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+# Recommended by p10k for faster prompt
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 
 # ZSH History Options
@@ -73,8 +77,8 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_ALL_DUPS
 
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=900
+HISTSIZE=50000
+SAVEHIST=50000
 
 # Autocomplete for pipx
 znap function _python_argcomplete pipx 'eval "$( register-python-argcomplete pipx  )"'
