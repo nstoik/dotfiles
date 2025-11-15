@@ -14,6 +14,16 @@ mkdir -p "$ZSH_CACHE_DIR/completions"
 
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Recommended by p10k for faster prompt
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 # OS-specific PATH additions
 if [[ -f /etc/os-release ]]; then
     # Read the ID field
@@ -48,20 +58,7 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-znap source ohmyzsh/ohmyzsh lib/git.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo,history}
-znap source zsh-users/zsh-history-substring-search
-
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Recommended by p10k for faster prompt
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
+znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo,history}
 
 # ZSH History Options
 # share history across multiple zsh sessions
