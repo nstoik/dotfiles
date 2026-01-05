@@ -46,15 +46,15 @@ pihole-2 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/lPUGOafUUtMoUdIo+fPbyYGw/LN6vMej
 
 10.10.5.11 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/lPUGOafUUtMoUdIo+fPbyYGw/LN6vMejGL1XKa5fy 
 
-# Proxmox VM: docker-testing
-docker-testing.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEoMydNYHPmF3J18uVarelI5WNUgKVAvC2tJ9INBby1P 
-
-docker-testing ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEoMydNYHPmF3J18uVarelI5WNUgKVAvC2tJ9INBby1P 
-
-10.10.5.25 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEoMydNYHPmF3J18uVarelI5WNUgKVAvC2tJ9INBby1P 
-
 # Proxmox Host: pbs
 pbs.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQrZehEWSk4qvfBTgljfNQMr6L6Dkz0drvxqbSokWml 
 
 10.10.5.9 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQrZehEWSk4qvfBTgljfNQMr6L6Dkz0drvxqbSokWml 
+
+# Proxmox VM: docker-01
+docker-01.home.stechsolutions.ca ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID06AwUoj2gl5vHazPZoSVLfjtb6wYP4Io3lXo8+Lwtl 
+
+docker-01 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID06AwUoj2gl5vHazPZoSVLfjtb6wYP4Io3lXo8+Lwtl 
+
+10.10.5.24 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID06AwUoj2gl5vHazPZoSVLfjtb6wYP4Io3lXo8+Lwtl 
 
