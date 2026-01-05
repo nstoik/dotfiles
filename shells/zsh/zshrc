@@ -53,6 +53,9 @@ zstyle :omz:plugins:ssh-agent lazy yes
 zstyle :omz:plugins:ssh-agent lifetime 1h
 zstyle :omz:plugins:ssh-agent quiet yes
 
+# ssh autocomplete plugin configuration
+zstyle ':completion:*:ssh:*' known-hosts-files ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed ~/.ssh/known_hosts_ansible
+
 # `znap source` automatically downloads and starts your plugins.
 znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
