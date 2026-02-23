@@ -56,8 +56,15 @@ zstyle :omz:plugins:ssh-agent quiet yes
 # ssh autocomplete plugin configuration
 zstyle ':completion:*:ssh:*' known-hosts-files ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed ~/.ssh/known_hosts_ansible
 
+# If we're not in vscode, load the zsh-autocomplete plugin. If we are in vscode, load the vscode shell integration for zsh.
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+  znap source marlonrichert/zsh-autocomplete
+else
+  # Configure the terminal for vscode.
+  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+fi
 # `znap source` automatically downloads and starts your plugins.
-znap source marlonrichert/zsh-autocomplete
+# znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
@@ -115,7 +122,6 @@ set-title-preexec() {
   fi
   echo -ne "\033]0;$title\007"
 }
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
