@@ -56,15 +56,12 @@ zstyle :omz:plugins:ssh-agent quiet yes
 # ssh autocomplete plugin configuration
 zstyle ':completion:*:ssh:*' known-hosts-files ~/.ssh/known_hosts ~/.ssh/known_hosts_fixed ~/.ssh/known_hosts_ansible
 
-# If we're not in vscode, load the zsh-autocomplete plugin. If we are in vscode, load the vscode shell integration for zsh.
-if [[ "$TERM_PROGRAM" != "vscode" ]]; then
-  znap source marlonrichert/zsh-autocomplete
-else
-  # Configure the terminal for vscode.
-  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-fi
+# Load VSCode shell integration before plugins. zsh-autocomplete must load after it
+# or it errors, but this means integration's precmd hooks get overwritten by plugins.
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 # `znap source` automatically downloads and starts your plugins.
-# znap source marlonrichert/zsh-autocomplete
+znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
