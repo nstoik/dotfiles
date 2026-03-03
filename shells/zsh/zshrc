@@ -27,7 +27,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # OS-specific PATH additions
 if [[ -f /etc/os-release ]]; then
     # Read the ID field
-    local os_id=$(grep -Po "(?<=^ID=).*" /etc/os-release | tr -d '"')
+    os_id=$(grep -Po "(?<=^ID=).*" /etc/os-release | tr -d '"')
 
     # Check if ID is exactly 'debian'
     # This will include pure Debian and Proxmox (which identifies as ID=debian)
@@ -92,11 +92,11 @@ SAVEHIST=50000
 znap function _python_argcomplete pipx 'eval "$( register-python-argcomplete pipx  )"'
 complete -o nospace -o default -o bashdefault -F _python_argcomplete pipx
 
-# Use premcd to set the title of the terminal window to include the current directory
-# Use preexec to set the title of the terminal window to include both the current directory and the command being executed
-# if there is a ssh connection, include the hostname in the title
-add-zsh-hook precmd set-title-precmd
-add-zsh-hook preexec set-title-preexec
+# Use precmd/preexec to set the terminal title. Skip in VSCode — shell integration manages titles there.
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+  add-zsh-hook precmd set-title-precmd
+  add-zsh-hook preexec set-title-preexec
+fi
 
 set-title-precmd() {
   local title
