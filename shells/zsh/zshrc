@@ -42,6 +42,9 @@ fi
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
+# zsh-autocomplete: show more history results on ctrl-r (default is 16)
+zstyle ':autocomplete:history-search:*' list-lines 32
+
 # zsh-autosuggestions plugin configuration
 # https://github.com/zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00af87"
