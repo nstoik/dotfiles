@@ -14,6 +14,11 @@ It is configured in the [advanced mode](https://github.com/anishathalye/dotbot/w
 > cd dotfiles
 > sudo chmod +x install-profile install-standalone
 ```
+
+After pulling updates on any machine, run the following to sync submodules to the correct commit:
+``` bash
+git submodule update --init
+```
 ## Nerdfonts
 
 Download and install the [CascadiaCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode) from the [nerd-fonts releases page](https://github.com/ryanoasis/nerd-fonts/releases) and install it on your system. On Windows, install the font for all users so it is available in WSL2 terminals.
