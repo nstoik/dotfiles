@@ -15,10 +15,8 @@ It is configured in the [advanced mode](https://github.com/anishathalye/dotbot/w
 > sudo chmod +x install-profile install-standalone
 ```
 ## Nerdfonts
-TODO: Add instructions for installing nerdfonts
 
-* [GitHub repo](https://github.com/ryanoasis/nerd-fonts)
-* [CascadiaCode Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode)
+Download and install the [CascadiaCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode) from the [nerd-fonts releases page](https://github.com/ryanoasis/nerd-fonts/releases) and install it on your system. On Windows, install the font for all users so it is available in WSL2 terminals.
 # Usage
 For installing a predefined profile:
 
@@ -63,6 +61,33 @@ The [ssh config](meta/configs/ssh.yaml) will link the following files:
 * [ssh authorized_keys](ssh/authorized_keys) to `~/.ssh/authorized_keys`
     * This file is used to store the authorized_keys that are allowed to connect to the computer over ssh.
     * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_AUTHORIZED_FILE` is set.
+
+## WSL2: Bitwarden SSH Agent Bridge
+
+On WSL2 hosts, the zshrc automatically bridges the Bitwarden Desktop SSH agent into WSL2 instead of using the omz `ssh-agent` plugin. This allows SSH keys managed in Bitwarden to be used from within WSL2.
+
+### Prerequisites
+
+1. **Bitwarden Desktop** must be installed on Windows with the SSH agent enabled:
+   - Open Bitwarden Desktop → Settings → SSH Agent → enable "Enable SSH Agent"
+
+2. **`socat`** must be installed in WSL2:
+   ``` bash
+   sudo apt install socat
+   ```
+
+3. **`npiperelay.exe`** must be available on the Windows PATH:
+   - Download from [jstarks/npiperelay](https://github.com/jstarks/npiperelay/releases)
+   - Place `npiperelay.exe` in `C:\Windows\System32\`
+
+### How it works
+
+On WSL2, zshrc:
+- Sets `SSH_AUTH_SOCK` to `~/.ssh/agent.sock`
+- Starts a `socat` process (if not already running) that relays the Unix socket to the Windows named pipe `//./pipe/openssh-ssh-agent` used by Bitwarden Desktop
+- Skips loading the omz `ssh-agent` plugin (which would conflict)
+
+On non-WSL2 hosts, the omz `ssh-agent` plugin is loaded as normal.
 
 ## Examples
 ``` bash

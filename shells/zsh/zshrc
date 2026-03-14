@@ -50,7 +50,19 @@ zstyle ':autocomplete:history-search:*' list-lines 32
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#00af87"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# ssh-agent plugin configuration
+# Bitwarden SSH agent bridge (WSL2 only)
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+
+  if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
+    rm -f "$SSH_AUTH_SOCK"
+    (setsid socat UNIX-LISTEN:"$SSH_AUTH_SOCK",fork \
+      EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) \
+      >/dev/null 2>&1
+  fi
+fi
+
+# ssh-agent plugin configuration (non-WSL2 only)
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
 zstyle :omz:plugins:ssh-agent lazy yes
 zstyle :omz:plugins:ssh-agent lifetime 1h
@@ -68,7 +80,11 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source romkatv/powerlevel10k
-znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo,history}
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,sudo,history}
+else
+  znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,ssh-agent,sudo,history}
+fi
 
 # ZSH History Options
 # share history across multiple zsh sessions
