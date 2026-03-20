@@ -94,6 +94,44 @@ On WSL2, zshrc:
 
 On non-WSL2 hosts, the omz `ssh-agent` plugin is loaded as normal.
 
+### Testing the Bridge
+
+After opening a new shell (or running `source ~/.zshrc`), verify the bridge is working:
+
+**1. Check the socket exists and socat is running:**
+``` bash
+ls -la ~/.ssh/agent.sock
+pgrep -a socat
+```
+
+**2. Confirm `SSH_AUTH_SOCK` is set correctly:**
+``` bash
+echo $SSH_AUTH_SOCK
+# Expected: /home/<user>/.ssh/agent.sock
+```
+
+**3. List keys loaded in Bitwarden's SSH agent:**
+``` bash
+ssh-add -l
+```
+Expected output: one or more key fingerprints. If you see `The agent has no identities.`, Bitwarden has no SSH keys added. If you see `Error connecting to agent`, the bridge is not working — check that Bitwarden Desktop is running and the SSH agent is enabled.
+
+**4. Test an actual SSH connection** (replace `git@github.com` with any host you have a key for):
+``` bash
+ssh -T git@github.com
+# Expected: "Hi <username>! You've successfully authenticated..."
+```
+
+**Troubleshooting:**
+- If `ssh-add -l` fails, restart the bridge manually:
+  ``` bash
+  rm -f ~/.ssh/agent.sock
+  source ~/.zshrc
+  ssh-add -l
+  ```
+- Ensure Bitwarden Desktop is unlocked and `npiperelay.exe` is on the Windows PATH.
+- Verify the named pipe exists from WSL2: `ls /mnt/c/Windows/System32/npiperelay.exe`
+
 ## Examples
 ``` bash
 # Normal installation
