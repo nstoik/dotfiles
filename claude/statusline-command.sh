@@ -19,7 +19,7 @@ fi
 git_info=""
 if git -C "$dir" rev-parse --git-dir >/dev/null 2>&1; then
   branch=$(git -C "$dir" symbolic-ref --short HEAD 2>/dev/null || git -C "$dir" rev-parse --short HEAD 2>/dev/null)
-  dirty=$(git -C "$dir" status --porcelain --no-lock-index 2>/dev/null | head -1)
+  dirty=$(git -C "$dir" status --porcelain --no-optional-locks 2>/dev/null | head -1)
   if [ -n "$dirty" ]; then
     git_info=" [$branch *]"
   else
