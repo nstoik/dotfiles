@@ -1,6 +1,9 @@
 - create:
     - ~/.claude
 
+- clean:
+    - ~/.claude
+
 - link:
     ~/.claude/settings.json:
       path: claude/settings.json
