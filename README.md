@@ -162,6 +162,10 @@ The [claude config](meta/configs/claude.yaml) will:
   * [CLAUDE.md](claude/CLAUDE.md) to `~/.claude/CLAUDE.md`
   * [statusline-command.sh](claude/statusline-command.sh) to `~/.claude/statusline-command.sh`
 
+The `statusline-command.sh` script requires the following tools on your `PATH`:
+* `git` (for repository status)
+* `jq` (for JSON parsing)
+
 # Contents
 To create the charts below, run the following commands:
 ``` bash
