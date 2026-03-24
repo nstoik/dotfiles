@@ -13,6 +13,7 @@ It is configured in the [advanced mode](https://github.com/anishathalye/dotbot/w
 > git clone https://github.com/nstoik/dotfiles.git --recursive
 > cd dotfiles
 > sudo chmod +x install-profile install-standalone
+> chmod +x meta/dotbot/bin/dotbot
 ```
 
 After pulling updates on any machine, run the following to sync submodules to the correct commit:
