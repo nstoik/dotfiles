@@ -57,6 +57,7 @@ All install commands are safe to run multiple times (`relink: true` is set globa
 | `git.yaml` | `tools/git/gitconfig` | `~/.gitconfig` |
 | `ssh.yaml` | `ssh/config`, `ssh/authorized_keys`, `ssh/known_hosts_fixed`, `ssh/known_hosts_ansible` | `~/.ssh/...` |
 | `ssh-confd.yaml` | SSH daemon override config | `/etc/ssh/sshd_config.d/` (requires sudo) |
+| `claude.yaml` | `claude/settings.json`, `claude/CLAUDE.md`, `claude/statusline-command.sh` | `~/.claude/...` |
 
 ### Zsh Setup
 

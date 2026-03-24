@@ -153,6 +153,15 @@ ssh -T git@github.com
 The [git config](meta/configs/git.yaml) will link the following files:
 * [gitconfig](git/gitconfig) to `~/.gitconfig`
 
+# Claude Code
+The [claude config](meta/configs/claude.yaml) will:
+* Create `~/.claude/` if it doesn't exist
+* Clean broken symlinks from `~/.claude/`
+* Link the following files:
+  * [settings.json](claude/settings.json) to `~/.claude/settings.json`
+  * [CLAUDE.md](claude/CLAUDE.md) to `~/.claude/CLAUDE.md`
+  * [statusline-command.sh](claude/statusline-command.sh) to `~/.claude/statusline-command.sh`
+
 # Contents
 To create the charts below, run the following commands:
 ``` bash
@@ -170,6 +179,7 @@ meta/profiles
 ```
 meta/configs
 ├── bash.yaml
+├── claude.yaml
 ├── git.yaml
 ├── ssh-confd.yaml
 ├── ssh.yaml
@@ -178,20 +188,25 @@ meta/configs
 ## Dotfiles
 ```
 .
+├── CLAUDE.md
 ├── README.md
+├── claude
+│   ├── CLAUDE.md
+│   ├── settings.json
+│   └── statusline-command.sh
 ├── install-profile
 ├── install-standalone
 ├── shells
-│   ├── bash
-│   │   └── bashrc
-│   └── zsh
-│       ├── p10k.zsh
-│       └── zshrc
+│   ├── bash
+│   │   └── bashrc
+│   └── zsh
+│       ├── p10k.zsh
+│       └── zshrc
 ├── ssh
-│   ├── authorized_keys
-│   ├── config
-│   ├── known_hosts_ansible
-│   ├── known_hosts_fixed
+│   ├── authorized_keys
+│   ├── config
+│   ├── known_hosts_ansible
+│   └── known_hosts_fixed
 └── tools
     └── git
         └── gitconfig
