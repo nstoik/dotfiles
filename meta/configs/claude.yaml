@@ -1,0 +1,16 @@
+- create:
+    - ~/.claude
+
+- clean:
+    - ~/.claude
+
+- link:
+    ~/.claude/settings.json:
+      path: claude/settings.json
+      relink: true
+    ~/.claude/CLAUDE.md:
+      path: claude/CLAUDE.md
+      relink: true
+    ~/.claude/statusline-command.sh:
+      path: claude/statusline-command.sh
+      relink: true
