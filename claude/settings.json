@@ -1,0 +1,23 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "sh /home/nelson/.claude/statusline-command.sh"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh pr diff*)",
+      "Bash(gh pr status*)",
+      "Bash(gh issue view*)",
+      "Bash(gh issue list*)",
+      "Bash(gh issue status*)",
+      "Bash(gh repo view*)",
+      "Bash(gh run view*)",
+      "Bash(gh run list*)",
+      "Bash(gh release view*)",
+      "Bash(gh release list*)"
+    ]
+  }
+}
