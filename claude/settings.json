@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "sh /home/nelson/.claude/statusline-command.sh"
+    "command": "sh ~/.claude/statusline-command.sh"
   },
   "permissions": {
     "allow": [
