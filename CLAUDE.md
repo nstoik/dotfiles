@@ -31,19 +31,13 @@ Install individual configs:
 ./install-standalone ssh-confd-sudo  # add -sudo suffix for elevated privileges
 ```
 
-Skip optional SSH files via environment variables:
-```bash
-DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE=1 ./install-standalone ssh
-DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh
-```
-
 All install commands are safe to run multiple times (`relink: true` is set globally).
 
 ## Architecture
 
 ### Profile System
 
-- `meta/profiles/` — profile files listing which configs to apply (e.g., `server` applies git, ssh, zsh)
+- `meta/profiles/` — profile files listing which configs to apply (`client`, `server`, `workstation`)
 - `meta/configs/` — individual YAML config files consumed by Dotbot
 - `meta/base.yaml` — global Dotbot defaults (`relink: true`, `clean: ['~']`)
 - `meta/dotbot/` — Dotbot v1.24.0 as a git submodule
@@ -55,7 +49,9 @@ All install commands are safe to run multiple times (`relink: true` is set globa
 | `zsh.yaml` | `shells/zsh/zshrc`, `shells/zsh/p10k.zsh` | `~/.zshrc`, `~/.p10k.zsh` |
 | `bash.yaml` | `shells/bash/bashrc` | `~/.bashrc` |
 | `git.yaml` | `tools/git/gitconfig` | `~/.gitconfig` |
-| `ssh.yaml` | `ssh/config`, `ssh/authorized_keys`, `ssh/known_hosts_fixed`, `ssh/known_hosts_ansible` | `~/.ssh/...` |
+| `ssh.yaml` | `ssh/config`, `ssh/known_hosts_fixed` | `~/.ssh/config`, `~/.ssh/known_hosts_fixed` |
+| `ssh-authorized.yaml` | `ssh/authorized_keys` | `~/.ssh/authorized_keys` |
+| `ssh-known-hosts-ansible.yaml` | `ssh/known_hosts_ansible` | `~/.ssh/known_hosts_ansible` |
 | `ssh-confd.yaml` | SSH daemon override config | `/etc/ssh/sshd_config.d/` (requires sudo) |
 | `claude.yaml` | `claude/settings.json`, `claude/CLAUDE.md`, `claude/statusline-command.sh` | `~/.claude/...` |
 
@@ -70,7 +66,7 @@ The zshrc uses [zsh-snap](https://github.com/marlonrichert/zsh-snap) as a plugin
 Three separate known_hosts files are merged via SSH `Include`:
 - `known_hosts` — live/auto-updated by SSH
 - `known_hosts_fixed` — manually maintained in this repo
-- `known_hosts_ansible` — managed by the infrastructure repo (optional, skipped via env var)
+- `known_hosts_ansible` — managed by the infrastructure repo (applied via `ssh-known-hosts-ansible` config)
 
 ## Adding a New Config
 

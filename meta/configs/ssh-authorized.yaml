@@ -1,0 +1,5 @@
+- link:
+    ~/.ssh/authorized_keys:
+      create: true
+      path: ssh/authorized_keys
+      force: true

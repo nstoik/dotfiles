@@ -1,0 +1,4 @@
+- link:
+    ~/.ssh/known_hosts_ansible:
+      create: true
+      path: ssh/known_hosts_ansible

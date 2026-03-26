@@ -60,13 +60,15 @@ The [zsh config](meta/configs/zsh.yaml) will link the following files:
 The [ssh config](meta/configs/ssh.yaml) will link the following files:
 * [ssh config](ssh/config) to `~/.ssh/config`
 * [ssh known_hosts_fixed](ssh/known_hosts_fixed) to `~/.ssh/known_hosts_fixed`
-    * This file is used to store the known_hosts that is manually maintained.
-* [ssh known_hosts_ansible](ssh/known_hosts_ansible) to `~/.ssh/known_hosts_ansible`
-    * This file is used to store the known_hosts_ansible file that is managed by ansible and my [infrastructure repo](https://github.com/nstoik/infrastructure)
-    * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE` is set.
-* [ssh authorized_keys](ssh/authorized_keys) to `~/.ssh/authorized_keys`
-    * This file is used to store the authorized_keys that are allowed to connect to the computer over ssh.
-    * This file will not be linked if the environment variable `DOTBOT_SKIP_SSH_AUTHORIZED_FILE` is set.
+    * Manually maintained known hosts.
+
+The [ssh-authorized config](meta/configs/ssh-authorized.yaml) will link:
+* [authorized_keys](ssh/authorized_keys) to `~/.ssh/authorized_keys`
+    * SSH keys permitted to connect to this machine.
+
+The [ssh-known-hosts-ansible config](meta/configs/ssh-known-hosts-ansible.yaml) will link:
+* [known_hosts_ansible](ssh/known_hosts_ansible) to `~/.ssh/known_hosts_ansible`
+    * Known hosts managed by Ansible and the [infrastructure repo](https://github.com/nstoik/infrastructure).
 
 ## WSL2: Bitwarden SSH Agent Bridge
 
@@ -133,22 +135,6 @@ ssh -T git@github.com
 - Ensure Bitwarden Desktop is unlocked and `npiperelay.exe` is on the Windows PATH.
 - Verify the named pipe exists from WSL2: `ls /mnt/c/Windows/System32/npiperelay.exe`
 
-## Examples
-``` bash
-# Normal installation
-~/.dotfiles$ ./install-standalone ssh
-
-# Skipping the Known_hosts_ansible file
-~/.dotfiles$ DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE=1 ./install-standalone ssh
-
-# Skipping the authorized_keys file
-~/.dotfiles$ DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh
-
-# Skipping both files
-~/.dotfiles$ DOTBOT_SKIP_SSH_KNOWN_HOSTS_ANSIBLE_FILE=1 DOTBOT_SKIP_SSH_AUTHORIZED_FILE=1 ./install-standalone ssh
-
-```
-
 
 # Git
 The [git config](meta/configs/git.yaml) will link the following files:
@@ -177,6 +163,7 @@ tree -I 'meta' .
 ## Profiles
 ```
 meta/profiles
+├── client
 ├── server
 └── workstation
 ```
@@ -186,7 +173,9 @@ meta/configs
 ├── bash.yaml
 ├── claude.yaml
 ├── git.yaml
+├── ssh-authorized.yaml
 ├── ssh-confd.yaml
+├── ssh-known-hosts-ansible.yaml
 ├── ssh.yaml
 └── zsh.yaml
 ```
