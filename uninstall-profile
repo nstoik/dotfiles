@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+
+from __future__ import print_function
+
+import os
+import sys
+import yaml
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+META_DIR = os.path.join(BASE_DIR, "meta")
+CONFIG_DIR = os.path.join(META_DIR, "configs")
+PROFILES_DIR = os.path.join(META_DIR, "profiles")
+CONFIG_SUFFIX = ".yaml"
+
+
+def remove_links(config_file):
+    with open(config_file, "r") as f:
+        conf = yaml.safe_load(f)
+    if not conf:
+        return
+    for section in conf:
+        if "link" in section:
+            for target in section["link"]:
+                realpath = os.path.expanduser(target)
+                if os.path.islink(realpath):
+                    print("Removing", realpath)
+                    os.unlink(realpath)
+
+
+def resolve_configs(profile):
+    profile_file = os.path.join(PROFILES_DIR, profile)
+    if not os.path.isfile(profile_file):
+        print(f"Error: profile '{profile}' not found", file=sys.stderr)
+        sys.exit(1)
+    with open(profile_file, "r") as f:
+        return [line.strip() for line in f if line.strip()]
+
+
+if len(sys.argv) < 2:
+    print(f"Usage: {sys.argv[0]} <profile>", file=sys.stderr)
+    sys.exit(1)
+
+profile = sys.argv[1]
+configs = resolve_configs(profile)
+
+for config in configs:
+    config_file = os.path.join(CONFIG_DIR, config + CONFIG_SUFFIX)
+    if not os.path.isfile(config_file):
+        print(f"Warning: config '{config}' not found, skipping", file=sys.stderr)
+        continue
+    print(f"\nUninstalling {config}")
+    remove_links(config_file)
