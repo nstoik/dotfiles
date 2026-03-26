@@ -31,6 +31,11 @@ Install individual configs:
 ./install-standalone ssh-confd-sudo  # add -sudo suffix for elevated privileges
 ```
 
+Remove all symlinks for a profile (e.g. before switching profiles):
+```bash
+./uninstall-profile <profile>
+```
+
 All install commands are safe to run multiple times (`relink: true` is set globally).
 
 ## Architecture

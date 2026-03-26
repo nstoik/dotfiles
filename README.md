@@ -42,6 +42,11 @@ You can also invoke a single configuration as a sudoer by adding `-sudo` to the 
 ~/.dotfiles$ ./install-standalone some-config-sudo some-other-config
 ```
 
+To remove all symlinks for a profile (e.g. before switching to a different profile):
+``` bash
+~/.dotfiles$ ./uninstall-profile <profile>
+```
+
 
 You can run these installation commands safely multiple times.
 
