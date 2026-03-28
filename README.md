@@ -12,8 +12,13 @@ It is configured in the [advanced mode](https://github.com/anishathalye/dotbot/w
 ``` bash
 > git clone https://github.com/nstoik/dotfiles.git --recursive
 > cd dotfiles
-> sudo chmod +x install-profile install-standalone
+> sudo chmod +x install-profile install-standalone uninstall-profile
 > chmod +x meta/dotbot/bin/dotbot
+```
+
+`uninstall-profile` requires Python 3 and PyYAML. Install PyYAML with:
+``` bash
+pipx install pyyaml
 ```
 
 After pulling updates on any machine, run the following to sync submodules to the correct commit:

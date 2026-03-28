@@ -12,8 +12,10 @@ Initial setup:
 ```bash
 git clone https://github.com/nstoik/dotfiles.git --recursive
 cd dotfiles
-sudo chmod +x install-profile install-standalone
+sudo chmod +x install-profile install-standalone uninstall-profile
 ```
+
+`uninstall-profile` requires Python 3 and PyYAML (`pipx install pyyaml`).
 
 After pulling updates, sync submodules:
 ```bash

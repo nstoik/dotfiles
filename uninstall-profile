@@ -4,7 +4,12 @@ from __future__ import print_function
 
 import os
 import sys
-import yaml
+
+try:
+    import yaml
+except ImportError:
+    print("Error: PyYAML is required. Install with: pipx install pyyaml", file=sys.stderr)
+    sys.exit(1)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 META_DIR = os.path.join(BASE_DIR, "meta")

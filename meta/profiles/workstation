@@ -1,5 +1,6 @@
 git
 ssh
+ssh-authorized
 ssh-known-hosts-ansible
 zsh
 claude
