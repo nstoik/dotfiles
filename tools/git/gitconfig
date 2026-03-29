@@ -6,7 +6,28 @@
     defaultBranch = main
 
 [push]
+    # auto-setup tracking branch on first push (no need for --set-upstream)
     autoSetupRemote = true
+
+[pull]
+    # rebase instead of merge on git pull for cleaner history
+    rebase = true
+
+[fetch]
+    # remove stale remote-tracking refs (e.g. origin/old-branch) after fetch
+    prune = true
+
+[rerere]
+    # remember and reuse conflict resolutions automatically
+    enabled = true
+
+[diff]
+    # highlight moved code blocks differently from added/removed lines
+    colorMoved = zebra
+
+[merge]
+    # show common ancestor in conflict markers for easier resolution
+    conflictstyle = zdiff3
 
 [core]
     # override the default pager. 
