@@ -14,3 +14,6 @@
     ~/.claude/statusline-command.sh:
       path: claude/statusline-command.sh
       relink: true
+    ~/.claude/skills:
+      path: claude/skills
+      relink: true
