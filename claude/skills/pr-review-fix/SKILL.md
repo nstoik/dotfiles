@@ -28,14 +28,14 @@ gh repo view --json owner,name --jq '"\(.owner.login)/\(.name)"'
 ### Inline review comments (file-level, with line references)
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/{pr_number}/comments --paginate \
+gh api -X GET repos/{owner}/{repo}/pulls/{pr_number}/comments --paginate \
   | jq -s '[.[][] | select(.in_reply_to_id == null) | {id, path, line, original_line, body, user: .user.login, html_url, diff_hunk}]'
 ```
 
 ### General PR comments (conversation tab)
 
 ```bash
-gh api repos/{owner}/{repo}/issues/{pr_number}/comments --paginate \
+gh api -X GET repos/{owner}/{repo}/issues/{pr_number}/comments --paginate \
   | jq -s '[.[][] | select(.user.login | endswith("[bot]") | not) | {id, body, user: .user.login, html_url, created_at}]'
 ```
 
