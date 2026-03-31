@@ -39,8 +39,8 @@ Keep only top-level threads: filter out entries where `in_reply_to_id` is non-nu
 
 ```bash
 gh api repos/{owner}/{repo}/issues/{pr_number}/comments \
-  --paginate \
-  --jq '[.[] | {id, body, user: .user.login, html_url, created_at}]'
+  --paginate --slurp \
+  --jq '[.[] | .[] | {id, body, user: .user.login, html_url, created_at}]'
 ```
 
 Skip bot comments (user login ends in `[bot]`).
