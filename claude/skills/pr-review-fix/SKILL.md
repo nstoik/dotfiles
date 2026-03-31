@@ -137,8 +137,8 @@ gh api -X POST \
 For **general PR comments**, reply as a new comment quoting the original:
 
 ```bash
-gh pr comment {pr_number} \
-  --body "> <first line of original comment>
+gh api -X POST repos/{owner}/{repo}/issues/{pr_number}/comments \
+  --field body="> <first line of original comment>
 
 Fixed in {commit_hash} — <one-line summary of what changed>"
 ```
