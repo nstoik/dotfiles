@@ -29,8 +29,8 @@ gh repo view --json owner,name --jq '"\(.owner.login)/\(.name)"'
 
 ```bash
 gh api repos/{owner}/{repo}/pulls/{pr_number}/comments \
-  --paginate \
-  --jq '[.[] | {id, path, line, original_line, body, user: .user.login, html_url, in_reply_to_id, diff_hunk}]'
+  --paginate --slurp \
+  --jq '[.[] | .[] | {id, path, line, original_line, body, user: .user.login, html_url, in_reply_to_id, diff_hunk}]'
 ```
 
 Keep only top-level threads: filter out entries where `in_reply_to_id` is non-null — those are existing replies, not new threads to address.
