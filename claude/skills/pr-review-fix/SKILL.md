@@ -28,9 +28,8 @@ gh repo view --json owner,name --jq '"\(.owner.login)/\(.name)"'
 ### Inline review comments (file-level, with line references)
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/{pr_number}/comments \
-  --paginate --slurp \
-  --jq '[.[] | .[] | {id, path, line, original_line, body, user: .user.login, html_url, in_reply_to_id, diff_hunk}]'
+gh api repos/{owner}/{repo}/pulls/{pr_number}/comments --paginate \
+  | jq -s '[.[][] | {id, path, line, original_line, body, user: .user.login, html_url, in_reply_to_id, diff_hunk}]'
 ```
 
 Keep only top-level threads: filter out entries where `in_reply_to_id` is non-null — those are existing replies, not new threads to address.
@@ -38,9 +37,8 @@ Keep only top-level threads: filter out entries where `in_reply_to_id` is non-nu
 ### General PR comments (conversation tab)
 
 ```bash
-gh api repos/{owner}/{repo}/issues/{pr_number}/comments \
-  --paginate --slurp \
-  --jq '[.[] | .[] | {id, body, user: .user.login, html_url, created_at}]'
+gh api repos/{owner}/{repo}/issues/{pr_number}/comments --paginate \
+  | jq -s '[.[][] | {id, body, user: .user.login, html_url, created_at}]'
 ```
 
 Skip bot comments (user login ends in `[bot]`).
