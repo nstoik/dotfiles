@@ -28,7 +28,7 @@ The `allow` list pre-approves these `gh` tool patterns without prompting. Anythi
 - `gh run view/list` — inspect CI runs
 - `gh release view/list` — inspect releases
 
-### `/pr-comments` skill
+### `/pr-review-fix` skill
 - `gh api repos/*/pulls/*/comments*` — read inline review comment threads
 - `gh api repos/*/issues/*/comments*` — read general PR/issue comments
 - `gh api -X POST repos/*/pulls/comments/*/replies*` — reply to an inline review thread with a commit hash
