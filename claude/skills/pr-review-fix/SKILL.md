@@ -29,19 +29,15 @@ gh repo view --json owner,name --jq '"\(.owner.login)/\(.name)"'
 
 ```bash
 gh api repos/{owner}/{repo}/pulls/{pr_number}/comments --paginate \
-  | jq -s '[.[][] | {id, path, line, original_line, body, user: .user.login, html_url, in_reply_to_id, diff_hunk}]'
+  | jq -s '[.[][] | select(.in_reply_to_id == null) | {id, path, line, original_line, body, user: .user.login, html_url, diff_hunk}]'
 ```
-
-Keep only top-level threads: filter out entries where `in_reply_to_id` is non-null — those are existing replies, not new threads to address.
 
 ### General PR comments (conversation tab)
 
 ```bash
 gh api repos/{owner}/{repo}/issues/{pr_number}/comments --paginate \
-  | jq -s '[.[][] | {id, body, user: .user.login, html_url, created_at}]'
+  | jq -s '[.[][] | select(.user.login | endswith("[bot]") | not) | {id, body, user: .user.login, html_url, created_at}]'
 ```
-
-Skip bot comments (user login ends in `[bot]`).
 
 ### Build the work list
 
