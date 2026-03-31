@@ -47,22 +47,27 @@ Skip bot comments (user login ends in `[bot]`).
 
 ### Build the work list
 
-Combine the two lists. Show a numbered summary to the user:
+Combine the two lists. Before presenting it, look for comments that can be addressed in a single fix — for example, the same issue raised in multiple places, or several comments all pointing to the same root cause. Group these together and present them as one item.
+
+Show a numbered summary to the user:
 
 ```
-Found N comment(s) to address:
+Found N comment(s) to address (M items after grouping):
   1. [inline] src/foo.py:42 — @alice: "This variable name is unclear..."
   2. [inline] tests/test_bar.py:15 — @bob: "Missing edge case for empty input"
-  3. [general] @alice: "Should we add a CHANGELOG entry?"
+  3. [inline × 2] src/foo.py:10, src/bar.py:22 — @alice, @bob: "Same pagination issue..." (grouped)
+  4. [general] @alice: "Should we add a CHANGELOG entry?"
 ```
 
 Ask if the user wants to work through all of them in order, or pick specific ones.
 
 ## 3. Interactive Comment Loop
 
-For each comment in the work list:
+For each item in the work list (individual comment or group):
 
 ### Display the comment
+
+For a single comment:
 
 ```
 ══════════════════════════════════════════════
@@ -82,6 +87,8 @@ Diff context:
   +  ...
 ══════════════════════════════════════════════
 ```
+
+For a grouped item, display each comment in the group sequentially, then summarize what the combined fix will cover before proposing it.
 
 For inline comments, also read the relevant file section around the referenced line for additional context.
 
@@ -142,7 +149,9 @@ gh pr comment {pr_number} \
 Fixed in {commit_hash} — <one-line summary of what changed>"
 ```
 
-Record: `{ comment_id, commit_hash, thread_type }` for the final step.
+For **grouped comments**, post a reply to every comment in the group with the same commit hash.
+
+Record: `{ comment_id, commit_hash, thread_type }` for each comment (including all in a group) for the final step.
 
 ## 4. Final Summary
 
