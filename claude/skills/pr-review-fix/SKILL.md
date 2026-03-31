@@ -169,11 +169,13 @@ For each inline comment thread that was addressed, offer to mark it resolved on 
 First, get the review thread node IDs:
 
 ```bash
+# Repeat with -f cursor="{endCursor}" until pageInfo.hasNextPage is false
 gh api graphql -f query='
-  query($owner: String!, $repo: String!, $pr: Int!) {
+  query($owner: String!, $repo: String!, $pr: Int!, $cursor: String) {
     repository(owner: $owner, name: $repo) {
       pullRequest(number: $pr) {
-        reviewThreads(first: 100) {
+        reviewThreads(first: 100, after: $cursor) {
+          pageInfo { hasNextPage endCursor }
           nodes {
             id
             isResolved
@@ -185,7 +187,7 @@ gh api graphql -f query='
       }
     }
   }
-' -f owner="{owner}" -f repo="{repo}" -F pr={pr_number}
+' -f owner="{owner}" -f repo="{repo}" -F pr={pr_number} -f cursor=""
 ```
 
 Match each thread's `comments.nodes[0].databaseId` against the `comment_id` values you recorded. For matching threads, resolve them:
