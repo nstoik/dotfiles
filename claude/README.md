@@ -29,9 +29,9 @@ The `allow` list pre-approves these `gh` tool patterns without prompting. Anythi
 - `gh release view/list` — inspect releases
 
 ### `/pr-review-fix` skill
-- `gh api repos/*/pulls/*/comments*` — read inline review comment threads
-- `gh api repos/*/issues/*/comments*` — read general PR/issue comments
+- `gh api -X GET repos/*/pulls/*/comments*` — read inline review comment threads
+- `gh api -X GET repos/*/issues/*/comments*` — read general PR/issue comments
 - `gh api -X POST repos/*/pulls/*/comments/*/replies*` — reply to an inline review thread with a commit hash
-- `gh pr comment*` — post general PR comments (replying to non-inline comments)
+- `gh api -X POST repos/*/issues/*/comments*` — post general PR comments (replying to non-inline comments)
 
 > GraphQL mutations (e.g. resolving review threads) are intentionally left out so the user is prompted before threads are marked resolved.
