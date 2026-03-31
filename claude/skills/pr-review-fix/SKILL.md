@@ -129,7 +129,7 @@ For **inline review comments**:
 
 ```bash
 gh api -X POST \
-  repos/{owner}/{repo}/pulls/comments/{comment_id}/replies \
+  repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies \
   --field body="Fixed in {commit_hash} — <one-line summary of what changed>"
 ```
 
