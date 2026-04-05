@@ -97,9 +97,12 @@ Ask: **Address this now, Skip, or Stop?** (`a` / `s` / `q`)
 ### Implement the fix
 
 1. Read the relevant file if not already in context.
-2. Analyze the comment and propose a concrete change.
-3. Show the proposed diff and confirm with the user before editing.
-4. Apply the fix using Edit or Write tools.
+2. Analyze the comment and determine a concrete change.
+3. Apply the fix immediately using Edit or Write tools so the user can review it in VSCode.
+4. Ask: **Keep this fix, Revert, or Edit further?** (`k` / `r` / `e`)
+   - **Keep**: proceed to commit
+   - **Revert**: undo the change (restore the original content) and discuss alternatives
+   - **Edit further**: discuss and apply additional changes before committing
 
 ### Commit the fix
 
