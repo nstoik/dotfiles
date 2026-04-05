@@ -98,11 +98,9 @@ Ask: **Address this now, Skip, or Stop?** (`a` / `s` / `q`)
 
 1. Read the relevant file if not already in context.
 2. Analyze the comment and determine a concrete change.
-3. Apply the fix immediately using Edit or Write tools so the user can review it in VSCode.
-4. Ask: **Keep this fix, Revert, or Edit further?** (`k` / `r` / `e`)
-   - **Keep**: proceed to commit
-   - **Revert**: undo the change (restore the original content) and discuss alternatives
-   - **Edit further**: discuss and apply additional changes before committing
+3. Apply the fix using Edit or Write tools. The VSCode diff view shown during tool approval is your review — approve to accept, deny to reject.
+   - If the tool call is **approved**: proceed to commit.
+   - If the tool call is **denied**: discuss alternatives and try again.
 
 ### Commit the fix
 
@@ -228,5 +226,5 @@ git push
 - Never force-push. If `git push` is rejected, surface the error and ask the user how to proceed.
 - If a commit hook fails, investigate the cause — do not use `--no-verify`.
 - Only stage files directly related to the current fix. If `git status` shows unrelated changes, confirm with the user which files to include.
-- If the user rejects a proposed fix, discuss alternatives before implementing.
+- If the user denies the Edit/Write tool call for a fix, discuss alternatives and try again.
 - Skip comments that appear to already have a reply from the current user, unless the user explicitly asks to re-address them.
