@@ -10,6 +10,28 @@ Host pi4dev
 Host *.home.stechsolutions.ca
   User nelson
 
+# ──────────────────────────────────────────
+# welca.ca client hosts
+# ──────────────────────────────────────────
+
+Host welca-pve-nelson welca-pve-welca
+  HostName 10.150.1.5
+
+Host welca-pve-nelson
+  User nelson
+
+Host welca-pve-welca
+  User welca
+
+Host welca-video-nelson welca-video-welca
+  HostName 10.150.1.6
+
+Host welca-video-nelson
+  User nelson
+
+Host welca-video-welca
+  User welca
+
 # Default options for all hosts
 Host *
   IgnoreUnknown UseKeychain
