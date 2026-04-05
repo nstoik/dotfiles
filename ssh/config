@@ -14,20 +14,22 @@ Host *.home.stechsolutions.ca
 # welca.ca client hosts
 # ──────────────────────────────────────────
 
-Host welca-pve-nelson
+Host welca-pve-nelson welca-pve-welca
   HostName 10.150.1.5
+
+Host welca-pve-nelson
   User nelson
 
 Host welca-pve-welca
-  HostName 10.150.1.5
   User welca
 
-Host welca-video-nelson
+Host welca-video-nelson welca-video-welca
   HostName 10.150.1.6
+
+Host welca-video-nelson
   User nelson
 
 Host welca-video-welca
-  HostName 10.150.1.6
   User welca
 
 # Default options for all hosts
