@@ -74,9 +74,9 @@ fi
 # fnm (Node.js version manager)
 # To install: curl -fsSL https://fnm.vercel.app/install | bash
 FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
+if [[ -d "$FNM_PATH" ]]; then
   export PATH="$FNM_PATH:$PATH"
-  export XDG_RUNTIME_DIR=/tmp/run/user/$(id -u)
+  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/run/user/$(id -u)}"
   mkdir -p "$XDG_RUNTIME_DIR"
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
