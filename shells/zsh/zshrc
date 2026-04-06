@@ -71,6 +71,15 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
   fi
 fi
 
+# fnm (Node.js version manager)
+# To install: curl -fsSL https://fnm.vercel.app/install | bash
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  export XDG_RUNTIME_DIR=/tmp/run/user/$(id -u)
+  mkdir -p "$XDG_RUNTIME_DIR"
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
 
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
 zstyle :omz:plugins:ssh-agent lazy yes
