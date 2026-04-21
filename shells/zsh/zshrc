@@ -77,7 +77,7 @@ FNM_PATH="$HOME/.local/share/fnm"
 if [[ -d "$FNM_PATH" ]]; then
   export PATH="$FNM_PATH:$PATH"
   if [[ -z "${XDG_RUNTIME_DIR:-}" || ! -d "$XDG_RUNTIME_DIR" || ! -w "$XDG_RUNTIME_DIR" ]]; then
-    xdg_runtime_dir="/tmp/run/user/$(id -u)"
+    xdg_runtime_dir="/tmp/xdg-runtime-$(id -u)"
     if [[ ! -L "$xdg_runtime_dir" ]]; then
       install -d -m 700 -- "$xdg_runtime_dir"
       if [[ -d "$xdg_runtime_dir" && ! -L "$xdg_runtime_dir" && -O "$xdg_runtime_dir" ]]; then
