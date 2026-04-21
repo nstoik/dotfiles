@@ -76,8 +76,15 @@ fi
 FNM_PATH="$HOME/.local/share/fnm"
 if [[ -d "$FNM_PATH" ]]; then
   export PATH="$FNM_PATH:$PATH"
-  export XDG_RUNTIME_DIR="/tmp/run/user/$(id -u)"
-  mkdir -p "$XDG_RUNTIME_DIR"
+  if [[ -z "${XDG_RUNTIME_DIR:-}" || ! -d "$XDG_RUNTIME_DIR" || ! -w "$XDG_RUNTIME_DIR" ]]; then
+    xdg_runtime_dir="/tmp/run/user/$(id -u)"
+    if [[ ! -L "$xdg_runtime_dir" ]]; then
+      install -d -m 700 -- "$xdg_runtime_dir"
+      if [[ -d "$xdg_runtime_dir" && ! -L "$xdg_runtime_dir" && -O "$xdg_runtime_dir" ]]; then
+        export XDG_RUNTIME_DIR="$xdg_runtime_dir"
+      fi
+    fi
+  fi
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
