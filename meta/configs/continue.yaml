@@ -1,0 +1,7 @@
+- create:
+    - ~/.continue
+
+- link:
+    ~/.continue/config.yaml:
+      path: tools/continue/config.wsl2.yaml
+      relink: true
