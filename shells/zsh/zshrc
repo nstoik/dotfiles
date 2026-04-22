@@ -3,9 +3,11 @@
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/.Git/zsh-snap
 
-# Ollama - Windows host IP for WSL2
-export OLLAMA_BASE_URL=http://172.22.208.1:11434
-export OLLAMA_MODEL=deepseek-r1:8b
+# Ollama - LAN IP of Windows desktop; works from WSL2, laptop, or any LAN host
+: "${OLLAMA_BASE_URL:=http://10.10.1.100:11434}"
+export OLLAMA_BASE_URL
+: "${OLLAMA_MODEL:=deepseek-r1:8b}"
+export OLLAMA_MODEL
 
 # The below 5 lines gets rid of a warning when launching zsh of no such file or directory: /completions/_docker
 # The error was caused by the following line in the Github repo for oh-my-zsh:

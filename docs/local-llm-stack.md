@@ -66,12 +66,7 @@ ansible-playbook playbooks/hosts_configure.yaml \
 **WSL2:** `~/.continue/config.yaml`
 → managed via dotbot: `./install-profile workstation` symlinks `tools/continue/config.wsl2.yaml`
 
-> **Note:** The WSL2 Ollama URL uses `172.22.208.1` (the Windows host IP as seen from WSL2).
-> This IP **can change on WSL2 restart**. If Continue stops connecting, run:
-> ```bash
-> ip route show | grep -i default | awk '{ print $3 }'
-> ```
-> and update `OLLAMA_HOST` / `OLLAMA_BASE_URL` in `~/.zshrc` and `tools/continue/config.wsl2.yaml`.
+> **Note:** Both the WSL2 and Windows configs point to `10.10.1.100:11434` (the Windows desktop's LAN IP). This works from any machine on the LAN, including laptops and WSL2.
 
 ---
 
