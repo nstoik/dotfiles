@@ -1,0 +1,7 @@
+- create:
+    - ~/.local/bin
+
+- link:
+    ~/.local/bin/pr-review.sh:
+      path: bin/pr-review.sh
+      relink: true
