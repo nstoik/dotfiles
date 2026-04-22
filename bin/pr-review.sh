@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://172.22.208.1:11434}"
+OLLAMA_BASE_URL="${OLLAMA_BASE_URL:?OLLAMA_BASE_URL not set — export it in zshrc}"
+OLLAMA_MODEL="${OLLAMA_MODEL:-deepseek-r1:8b}"
 
 if ! command -v jq &>/dev/null; then
   echo "Error: jq is required but not installed. Install with: sudo apt install jq" >&2
@@ -29,7 +30,7 @@ SYSTEM_PROMPT=$(cat "$PROMPT_FILE")
 
 curl -s "${OLLAMA_BASE_URL}/api/generate" \
   -d "$(jq -n \
-    --arg model "deepseek-r1:8b" \
+    --arg model "$OLLAMA_MODEL" \
     --arg system "$SYSTEM_PROMPT" \
     --arg prompt "$DIFF" \
     --argjson stream false \
