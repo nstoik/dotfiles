@@ -21,7 +21,9 @@ Ollama runs on Windows and is GPU-accelerated. Open WebUI lives in the infra rep
 ## Windows Setup
 
 1. Install Ollama from https://ollama.com/download
-2. In Ollama tray icon → Settings → enable **"Expose Ollama to network"**
+2. In Ollama tray icon → Settings:
+   - Enable **"Expose Ollama to network"**
+   - Set **Model storage path** to `D:\Ollama` (keeps large model files off the system drive)
 3. Pull models:
    ```
    ollama pull llama3.2
