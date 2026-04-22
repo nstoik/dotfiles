@@ -125,7 +125,7 @@ ollama-sync.sh
 
 ## Future Work
 
-- **WSL2 IP auto-update:** A shell script (e.g. sourced in `.zshrc`) that detects the current Windows host IP and patches `OLLAMA_HOST` and the Continue config on each shell start, so WSL2 IP changes are handled automatically.
+- **LAN IP auto-update:** A script that detects the current Windows desktop IP and patches `OLLAMA_BASE_URL` in `~/.zshrc` and the Continue config automatically if it changes.
 - **`@codebase` indexing in Continue:** Enable `nomic-embed-text` embeddings to index the local repo so that PR reviews and chat queries have full codebase context rather than just the diff.
 - **OpenClaw setup:** Configure OpenClaw pointing at the local Ollama API for agentic workflows.
 - **Automated PR review comments:** Pipe `pr-review.sh` output through `gh pr comment` to post the review directly on the GitHub PR.
