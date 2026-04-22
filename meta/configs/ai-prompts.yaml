@@ -5,3 +5,6 @@
     ~/ai/prompts/pr-review.md:
       path: ai/prompts/pr-review.md
       relink: true
+    ~/ai/models.txt:
+      path: ai/models.txt
+      relink: true

@@ -5,3 +5,6 @@
     ~/.local/bin/pr-review.sh:
       path: bin/pr-review.sh
       relink: true
+    ~/.local/bin/ollama-sync.sh:
+      path: bin/ollama-sync.sh
+      relink: true

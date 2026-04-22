@@ -104,6 +104,25 @@ pr-review.sh 42
 
 ---
 
+## Model Sync Script
+
+`bin/ollama-sync.sh` pulls/updates all models listed in `~/ai/models.txt` and removes any installed models not in that list.
+
+**Usage:**
+```bash
+ollama-sync.sh
+```
+
+**How it works:**
+- Pulls each listed model (no-op if already up to date; downloads new layers if the tag was updated)
+- Queries the Ollama API for currently installed models and removes any not in the list
+
+**To add or remove a model**, edit `ai/models.txt` and re-run the script.
+
+**Requirements:** `curl` and `jq` must be on PATH. `OLLAMA_BASE_URL` must be set (exported in zshrc).
+
+---
+
 ## Future Work
 
 - **WSL2 IP auto-update:** A shell script (e.g. sourced in `.zshrc`) that detects the current Windows host IP and patches `OLLAMA_HOST` and the Continue config on each shell start, so WSL2 IP changes are handled automatically.
