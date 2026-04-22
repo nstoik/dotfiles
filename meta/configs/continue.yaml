@@ -3,5 +3,5 @@
 
 - link:
     ~/.continue/config.yaml:
-      path: tools/continue/config.wsl2.yaml
+      path: tools/continue/config.lan.yaml
       relink: true

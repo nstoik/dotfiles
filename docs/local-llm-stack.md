@@ -60,13 +60,11 @@ ansible-playbook playbooks/hosts_configure.yaml \
 1. Install the [Continue extension](https://marketplace.visualstudio.com/items?itemName=Continue.continue) in VSCode
 2. Copy the appropriate config to the Continue config location:
 
-**Windows:** `C:\Users\nelson\.continue\config.yaml`
-→ source: `tools/continue/config.windows.yaml`
+**Windows (local):** `C:\Users\nelson\.continue\config.yaml`
+→ source: `tools/continue/config.windows.yaml` — uses `localhost:11434` (Ollama runs on this machine)
 
-**WSL2:** `~/.continue/config.yaml`
-→ managed via dotbot: `./install-profile workstation` symlinks `tools/continue/config.wsl2.yaml`
-
-> **Note:** Both the WSL2 and Windows configs point to `10.10.1.100:11434` (the Windows desktop's LAN IP). This works from any machine on the LAN, including laptops and WSL2.
+**WSL2 / laptop / any LAN host:** `~/.continue/config.yaml`
+→ managed via dotbot: `./install-profile workstation` symlinks `tools/continue/config.lan.yaml` — uses `10.10.1.100:11434`
 
 ---
 
