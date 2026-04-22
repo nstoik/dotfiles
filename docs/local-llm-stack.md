@@ -101,7 +101,7 @@ pr-review.sh <PR_NUMBER>
 pr-review.sh 42
 ```
 
-**Requirements:** `jq`, `gh` (GitHub CLI), and `curl` must be on PATH. The script checks for `jq` and `gh` and errors with a helpful message if either is missing; `curl` is assumed present.
+**Requirements:** `jq`, `gh` (GitHub CLI), and `curl` must be on PATH. The script checks for `jq` and `gh` and errors with a helpful message if either is missing; `curl` is assumed present. The script is installed to `~/.local/bin`, which Ubuntu adds to `PATH` automatically when the directory exists (via `/etc/profile`).
 
 **Limitations:**
 - `deepseek-r1:8b` has an 8K context window — very large diffs will be truncated or produce degraded output. Split large PRs into reviewable chunks.
