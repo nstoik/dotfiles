@@ -4,3 +4,5 @@ ssh-authorized
 ssh-known-hosts-ansible
 zsh
 claude
+continue
+bin
