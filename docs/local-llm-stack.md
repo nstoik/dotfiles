@@ -24,13 +24,15 @@ Ollama runs on Windows and is GPU-accelerated. Open WebUI lives in the infra rep
 2. In Ollama tray icon → Settings:
    - Enable **"Expose Ollama to network"**
    - Set **Model storage path** to `D:\Ollama` (keeps large model files off the system drive)
-3. Pull models:
+3. Pull models (or use `ollama-sync.sh` from WSL2/Linux — see below):
    ```
-   ollama pull llama3.2
-   ollama pull qwen2.5-coder:7b
-   ollama pull qwen2.5-coder:1.5b-base
-   ollama pull nomic-embed-text:latest
    ollama pull deepseek-r1:8b
+   ollama pull llama3.1:8b
+   ollama pull llama3.2:latest
+   ollama pull nomic-embed-text:latest
+   ollama pull qwen2.5-coder:1.5b
+   ollama pull qwen2.5-coder:1.5b-base
+   ollama pull qwen2.5-coder:7b
    ```
 4. Verify GPU is in use:
    ```
@@ -75,10 +77,12 @@ ansible-playbook playbooks/hosts_configure.yaml \
 | Model | Size | Purpose |
 |---|---|---|
 | `qwen2.5-coder:7b` | ~4.7 GB | Chat / code assistance (Continue chat, Open WebUI) |
-| `qwen2.5-coder:1.5b-base` | ~1.0 GB | Tab autocomplete in Continue |
-| `nomic-embed-text` | ~270 MB | Embeddings for `@codebase` indexing in Continue |
+| `qwen2.5-coder:1.5b` | ~1.0 GB | Code chat (instruction-tuned) |
+| `qwen2.5-coder:1.5b-base` | ~1.0 GB | Tab autocomplete in Continue (base model) |
+| `nomic-embed-text:latest` | ~270 MB | Embeddings for `@codebase` indexing in Continue |
 | `deepseek-r1:8b` | ~4.9 GB | PR diff review via `pr-review.sh` |
-| `llama3.2` | ~2.0 GB | General chat in Open WebUI |
+| `llama3.1:8b` | ~4.9 GB | General chat in Open WebUI |
+| `llama3.2:latest` | ~2.0 GB | General chat in Open WebUI (smaller/faster) |
 
 ---
 
