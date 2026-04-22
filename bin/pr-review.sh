@@ -17,8 +17,15 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
+PROMPTS_DIR="${PROMPTS_DIR:-$HOME/ai/prompts}"
+PROMPT_FILE="$PROMPTS_DIR/pr-review.md"
+if [[ ! -f "$PROMPT_FILE" ]]; then
+  echo "Error: prompt file not found: $PROMPT_FILE" >&2
+  exit 1
+fi
+
 DIFF=$(gh pr diff "$1")
-SYSTEM_PROMPT="You are a senior developer doing a code review. Review this PR diff for: security issues, bugs, code quality, and anything suspicious or wrong. Be concise and specific."
+SYSTEM_PROMPT=$(cat "$PROMPT_FILE")
 
 curl -s "${OLLAMA_BASE_URL}/api/generate" \
   -d "$(jq -n \

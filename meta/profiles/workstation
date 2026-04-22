@@ -1,8 +1,9 @@
+ai-prompts
+bin
+claude
+continue
 git
 ssh
 ssh-authorized
 ssh-known-hosts-ansible
 zsh
-claude
-continue
-bin

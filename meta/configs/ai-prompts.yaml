@@ -1,0 +1,7 @@
+- create:
+    - ~/ai/prompts
+
+- link:
+    ~/ai/prompts/pr-review.md:
+      path: ai/prompts/pr-review.md
+      relink: true
