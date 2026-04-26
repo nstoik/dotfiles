@@ -6,7 +6,7 @@
 # Ollama - LAN IP of Windows desktop; works from WSL2, laptop, or any LAN host
 : "${OLLAMA_BASE_URL:=http://10.10.1.100:11434}"
 export OLLAMA_BASE_URL
-: "${OLLAMA_MODEL:=deepseek-r1:8b}"
+: "${OLLAMA_MODEL:=qwen2.5-coder:14b}"
 export OLLAMA_MODEL
 
 # The below 5 lines gets rid of a warning when launching zsh of no such file or directory: /completions/_docker

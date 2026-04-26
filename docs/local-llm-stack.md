@@ -76,11 +76,10 @@ ansible-playbook playbooks/hosts_configure.yaml \
 
 | Model | Size | Purpose |
 |---|---|---|
-| `qwen2.5-coder:7b` | ~4.7 GB | Chat / code assistance (Continue chat, Open WebUI) |
-| `qwen2.5-coder:1.5b` | ~1.0 GB | Code chat (instruction-tuned) |
+| `qwen2.5-coder:14b` | ~8.7 GB | Chat / code assistance (Continue chat, Open WebUI) + PR review (default) |
 | `qwen2.5-coder:1.5b-base` | ~1.0 GB | Tab autocomplete in Continue (base model) |
 | `nomic-embed-text:latest` | ~270 MB | Embeddings for `@codebase` indexing in Continue |
-| `deepseek-r1:8b` | ~4.9 GB | PR diff review via `pr-review.sh` |
+| `deepseek-r1:8b` | ~4.9 GB | Reasoning / alternative PR review model |
 | `llama3.1:8b` | ~4.9 GB | General chat in Open WebUI |
 | `llama3.2:latest` | ~2.0 GB | General chat in Open WebUI (smaller/faster) |
 
@@ -88,7 +87,7 @@ ansible-playbook playbooks/hosts_configure.yaml \
 
 ## PR Review Script
 
-`bin/pr-review.sh` sends a PR diff to `deepseek-r1:8b` for a code review.
+`bin/pr-review.sh` sends a PR diff to Ollama for a code review (default model: `qwen2.5-coder:14b`).
 
 **Usage:**
 ```bash
@@ -103,7 +102,7 @@ pr-review.sh 42
 **Requirements:** `jq`, `gh` (GitHub CLI), and `curl` must be on PATH. The script checks for `jq` and `gh` and errors with a helpful message if either is missing; `curl` is assumed present. The script is installed to `~/.local/bin`, which Ubuntu adds to `PATH` automatically when the directory exists (via `/etc/profile`).
 
 **Limitations:**
-- `deepseek-r1:8b` has an 8K context window — very large diffs will be truncated or produce degraded output. Split large PRs into reviewable chunks.
+- `qwen2.5-coder:14b` has a 32K context window, but very large diffs may still be truncated or produce degraded output. Split large PRs into reviewable chunks.
 - The review has no knowledge of the broader codebase — it only sees the diff.
 
 ---
@@ -129,7 +128,5 @@ ollama-sync.sh
 
 ## Future Work
 
-- **LAN IP auto-update:** A script that detects the current Windows desktop IP and patches `OLLAMA_BASE_URL` in `~/.zshrc` and the Continue config automatically if it changes.
 - **`@codebase` indexing in Continue:** Enable `nomic-embed-text` embeddings to index the local repo so that PR reviews and chat queries have full codebase context rather than just the diff.
-- **OpenClaw setup:** Configure OpenClaw pointing at the local Ollama API for agentic workflows.
 - **Automated PR review comments:** Pipe `pr-review.sh` output through `gh pr comment` to post the review directly on the GitHub PR.

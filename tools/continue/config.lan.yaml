@@ -1,7 +1,7 @@
 models:
-  - title: Qwen2.5 Coder 7B
+  - title: Qwen2.5 Coder 14B
     provider: ollama
-    model: qwen2.5-coder:7b
+    model: qwen2.5-coder:14b
     apiBase: http://10.10.1.100:11434
 
 tabAutocompleteModel:

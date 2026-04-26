@@ -6,6 +6,5 @@ deepseek-r1:8b
 llama3.1:8b
 llama3.2:latest
 nomic-embed-text:latest
-qwen2.5-coder:1.5b
 qwen2.5-coder:1.5b-base
-qwen2.5-coder:7b
+qwen2.5-coder:14b
