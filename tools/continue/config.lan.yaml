@@ -1,0 +1,15 @@
+models:
+  - title: Qwen2.5 Coder 14B
+    provider: ollama
+    model: qwen2.5-coder:14b
+    apiBase: http://10.10.1.100:11434
+  - title: Qwen3.5 9B
+    provider: ollama
+    model: qwen3.5:9b
+    apiBase: http://10.10.1.100:11434
+
+tabAutocompleteModel:
+  title: Qwen2.5 Coder 1.5B
+  provider: ollama
+  model: qwen2.5-coder:1.5b-base
+  apiBase: http://10.10.1.100:11434

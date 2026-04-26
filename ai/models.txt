@@ -1,0 +1,11 @@
+# Ollama models to keep installed. One model per line.
+# Run bin/ollama-sync.sh to pull/update listed models and remove unlisted ones.
+# Lines starting with # and blank lines are ignored.
+
+deepseek-r1:8b
+llama3.1:8b
+llama3.2:latest
+nomic-embed-text:latest
+qwen2.5-coder:1.5b-base
+qwen2.5-coder:14b
+qwen3.5:9b

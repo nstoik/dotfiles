@@ -1,0 +1,7 @@
+- create:
+    - ~/.continue
+
+- link:
+    ~/.continue/config.yaml:
+      path: tools/continue/config.lan.yaml
+      relink: true
