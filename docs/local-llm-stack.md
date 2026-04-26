@@ -64,10 +64,16 @@ ansible-playbook playbooks/hosts_configure.yaml \
 1. Install the [Continue extension](https://marketplace.visualstudio.com/items?itemName=Continue.continue) in VSCode
 2. Copy the appropriate config to the Continue config location:
 
-**Windows (local):** `C:\Users\nelson\.continue\config.yaml`
-→ source: `tools/continue/config.windows.yaml` — uses `localhost:11434` (Ollama runs on this machine)
+**Windows (including WSL2 sessions):** `C:\Users\nelson\.continue\config.yaml`
+→ source: `tools/continue/config.windows.yaml` — uses `localhost:11434`
 
-**WSL2 / laptop / any LAN host:** `~/.continue/config.yaml`
+Continue is a UI extension and always runs on the Windows side, even when VSCode is connected to WSL2. The Windows config is always active on this machine. Copy manually whenever the source changes:
+
+```bash
+cp ~/GitHub/dotfiles/tools/continue/config.windows.yaml /mnt/c/Users/nelso/.continue/config.yaml
+```
+
+**Linux-native machines (laptop etc.):** `~/.continue/config.yaml`
 → managed via dotbot: `./install-profile workstation` symlinks `tools/continue/config.lan.yaml` — uses `10.10.1.100:11434`
 
 ---
@@ -78,7 +84,7 @@ ansible-playbook playbooks/hosts_configure.yaml \
 |---|---|---|
 | `qwen2.5-coder:14b` | ~8.7 GB | Chat / code assistance (Continue chat, Open WebUI) + PR review (default) |
 | `qwen2.5-coder:1.5b-base` | ~1.0 GB | Tab autocomplete in Continue (base model) |
-| `nomic-embed-text:latest` | ~270 MB | Embeddings for `@codebase` indexing in Continue |
+| `nomic-embed-text:latest` | ~270 MB | Embeddings for Open WebUI |
 | `deepseek-r1:8b` | ~4.9 GB | Reasoning / alternative PR review model |
 | `llama3.1:8b` | ~4.9 GB | General chat in Open WebUI |
 | `llama3.2:latest` | ~2.0 GB | General chat in Open WebUI (smaller/faster) |
@@ -128,5 +134,5 @@ ollama-sync.sh
 
 ## Future Work
 
-- **`@codebase` indexing in Continue:** Enable `nomic-embed-text` embeddings to index the local repo so that PR reviews and chat queries have full codebase context rather than just the diff.
+- **Continue codebase awareness:** Add `.continue/rules/*.md` files with project architecture and coding standards so the Continue agent has codebase context. See [docs](https://docs.continue.dev/guides/codebase-documentation-awareness).
 - **Automated PR review comments:** Pipe `pr-review.sh` output through `gh pr comment` to post the review directly on the GitHub PR.

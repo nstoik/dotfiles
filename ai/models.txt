@@ -8,3 +8,4 @@ llama3.2:latest
 nomic-embed-text:latest
 qwen2.5-coder:1.5b-base
 qwen2.5-coder:14b
+qwen3.5:9b
