@@ -6,7 +6,9 @@
       force: true
       path: shells/zsh/zshrc
     ~/.p10k.zsh:
+      force: true
       path: shells/zsh/p10k.zsh
     ~/.config/starship.toml:
+      force: true
       path: shells/starship/starship.toml
       relink: true
