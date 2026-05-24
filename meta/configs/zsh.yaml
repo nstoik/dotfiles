@@ -1,4 +1,12 @@
+- create:
+    - ~/.config
+
 - link:
     ~/.zshrc:
       force: true
       path: shells/zsh/zshrc
+    ~/.p10k.zsh:
+      path: shells/zsh/p10k.zsh
+    ~/.config/starship.toml:
+      path: shells/starship/starship.toml
+      relink: true

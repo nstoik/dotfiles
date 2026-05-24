@@ -25,9 +25,11 @@ After pulling updates on any machine, run the following to sync submodules to th
 ``` bash
 git submodule update --init
 ```
-## Nerdfonts
+## Nerd Fonts
 
-Download and install the [CascadiaCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode) from the [nerd-fonts releases page](https://github.com/ryanoasis/nerd-fonts/releases) and install it on your system. On Windows, install the font for all users so it is available in WSL2 terminals.
+The shell prompt (Starship or Powerlevel10k) requires a [Nerd Font](https://www.nerdfonts.com/) for icons and powerline glyphs. The recommended font is **JetBrainsMono Nerd Font Mono**.
+
+Download from the [nerd-fonts releases page](https://github.com/ryanoasis/nerd-fonts/releases) (`JetBrainsMono.zip`) and install on your system. On Windows, install the font for all users so it is available in WSL2 terminals, then set your terminal to use `JetBrainsMono Nerd Font Mono`.
 # Usage
 For installing a predefined profile:
 
@@ -60,11 +62,30 @@ If there are errors when running the install script, it can mean that files you 
 # ZSH
 ZSH needs to be installed on the computer.
 
-The installed .zshrc file uses [zsh-snap](https://github.com/marlonrichert/zsh-snap). This will download the plugins as needed.
+The installed `.zshrc` uses [zsh-snap](https://github.com/marlonrichert/zsh-snap) as a plugin manager. This will download plugins automatically on first use.
 
-The [zsh config](meta/configs/zsh.yaml) will link the following files:
-* [zshrc](zsh/zshrc) to `~/.zshrc`
-* [p10k.zsh](zsh/p10k.zsh) to `~/.p10k.zsh`
+The [zsh config](meta/configs/zsh.yaml) links the following files:
+* [zshrc](shells/zsh/zshrc) to `~/.zshrc`
+* [p10k.zsh](shells/zsh/p10k.zsh) to `~/.p10k.zsh`
+* [starship.toml](shells/starship/starship.toml) to `~/.config/starship.toml`
+
+## Prompt Theme
+
+The prompt can be switched between [Starship](https://starship.rs/) (default) and [Powerlevel10k](https://github.com/romkatv/powerlevel10k) by creating `~/.zshrc.local` (not tracked in this repo):
+
+```zsh
+# Use Powerlevel10k instead of Starship
+PROMPT_THEME=p10k
+```
+
+Remove `~/.zshrc.local` (or leave it empty) to revert to Starship.
+
+**Installing Starship:**
+```bash
+curl -sS https://starship.rs/install.sh | sh
+```
+
+Starship configuration lives in `shells/starship/starship.toml` and is symlinked to `~/.config/starship.toml` by dotbot.
 
 # SSH
 The [ssh config](meta/configs/ssh.yaml) will link the following files:
@@ -187,7 +208,7 @@ meta/configs
 ├── ssh-confd.yaml
 ├── ssh-known-hosts-ansible.yaml
 ├── ssh.yaml
-└── zsh.yaml
+└── zsh.yaml          # zshrc, p10k.zsh, starship.toml
 ```
 ## Dotfiles
 ```
@@ -203,6 +224,8 @@ meta/configs
 ├── shells
 │   ├── bash
 │   │   └── bashrc
+│   ├── starship
+│   │   └── starship.toml
 │   └── zsh
 │       ├── p10k.zsh
 │       └── zshrc

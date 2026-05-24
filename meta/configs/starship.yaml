@@ -1,7 +1,0 @@
-- create:
-    - ~/.config
-
-- link:
-    ~/.config/starship.toml:
-      path: shells/starship/starship.toml
-      relink: true

@@ -1,3 +1,24 @@
+# Load local overrides first (not tracked in dotfiles).
+# Set PROMPT_THEME=p10k here to switch to Powerlevel10k.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Show MOTD in WSL — must run before p10k instant prompt (no console output allowed after it).
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  if [[ -d /etc/update-motd.d ]]; then
+    run-parts /etc/update-motd.d/ 2>/dev/null
+  elif [[ -f /etc/motd ]]; then
+    cat /etc/motd
+  fi
+fi
+
+# Powerlevel10k instant prompt — must be near the top of .zshrc, before any output.
+# Only active when PROMPT_THEME=p10k.
+if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+fi
+
 # Download Znap, if it's not there yet.
 [[ -f ~/.Git/zsh-snap/znap.zsh ]] ||
     git clone --depth 1 -- \
@@ -19,15 +40,6 @@ export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 mkdir -p "$ZSH_CACHE_DIR/completions"
 
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
-
-# Show MOTD in WSL
-if grep -qi microsoft /proc/version 2>/dev/null; then
-  if [[ -d /etc/update-motd.d ]]; then
-    run-parts /etc/update-motd.d/ 2>/dev/null
-  elif [[ -f /etc/motd ]]; then
-    cat /etc/motd
-  fi
-fi
 
 # OS-specific PATH additions
 if [[ -f /etc/os-release ]]; then
@@ -161,5 +173,12 @@ set-title-preexec() {
   echo -ne "\033]0;$title\007"
 }
 
+# Prompt — switch with PROMPT_THEME=p10k in ~/.zshrc.local (default: starship)
 # To install starship: curl -sS https://starship.rs/install.sh | sh
-eval "$(starship init zsh)"
+# To install p10k:     znap source romkatv/powerlevel10k (handled below)
+if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
+  znap source romkatv/powerlevel10k
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+else
+  eval "$(starship init zsh)"
+fi
