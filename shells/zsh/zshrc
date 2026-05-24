@@ -11,6 +11,12 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
   fi
 fi
 
+# Download Znap, if it's not there yet. Must run before p10k instant prompt —
+# the git clone produces output that would trigger p10k's initialization warning.
+[[ -f ~/.Git/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.Git/zsh-snap
+
 # Powerlevel10k instant prompt — must be near the top of .zshrc, before any output.
 # Only active when PROMPT_THEME=p10k.
 if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
@@ -18,11 +24,6 @@ if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
   fi
 fi
-
-# Download Znap, if it's not there yet.
-[[ -f ~/.Git/zsh-snap/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git ~/.Git/zsh-snap
 
 # Ollama - LAN IP of Windows desktop; works from WSL2, laptop, or any LAN host
 : "${OLLAMA_BASE_URL:=http://10.10.1.100:11434}"
