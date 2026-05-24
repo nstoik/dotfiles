@@ -4,25 +4,25 @@ format = """
 [](red)\
 $os\
 $username\
+$hostname\
 [](bg:peach fg:red)\
 $directory\
 [](bg:yellow fg:peach)\
 $git_branch\
 $git_status\
 [](fg:yellow bg:green)\
-$c\
 $rust\
 $golang\
 $nodejs\
-$java\
-$kotlin\
 $python\
 [](fg:green bg:sapphire)\
-$conda\
+$sudo\
 [](fg:sapphire bg:lavender)\
 $time\
 [ ](fg:lavender)\
+$fill\
 $cmd_duration\
+$status\
 $line_break\
 $character"""
 
@@ -57,21 +57,23 @@ RedHatEnterprise = ""
 [username]
 show_always = true
 style_user = "bg:red fg:crust"
-style_root = "bg:red fg:crust"
+style_root = "bg:maroon fg:crust bold"
 format = '[ $user]($style)'
+
+[hostname]
+ssh_only = true
+style = "bg:red fg:crust"
+format = '[@$hostname]($style)'
+trim_at = "."
+disabled = false
 
 [directory]
 style = "bg:peach fg:crust"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
-
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
 
 [git_branch]
 symbol = ""
@@ -87,16 +89,6 @@ symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
-[bun]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[c]
-symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
 [rust]
 symbol = ""
 style = "bg:green"
@@ -104,26 +96,6 @@ format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[php]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[java]
-symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[haskell]
-symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
@@ -137,20 +109,20 @@ symbol = ""
 style = "bg:sapphire"
 format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
 
-[conda]
-symbol = "  "
+[sudo]
 style = "fg:crust bg:sapphire"
-format = '[$symbol$environment ]($style)'
-ignore_base = false
+symbol = "\uf084 "
+format = "[$symbol]($style)"
+disabled = false
 
 [time]
 disabled = false
-time_format = "%R"
+time_format = "%I:%M %p"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
 
 [line_break]
-disabled = true
+disabled = false
 
 [character]
 disabled = false
@@ -162,12 +134,24 @@ vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 [cmd_duration]
+min_time = 5
 show_milliseconds = true
-format = " in $duration "
+format = "\uf252 in $duration "
 style = "bg:lavender"
 disabled = false
-show_notifications = true
-min_time_to_notify = 45000
+
+[status]
+style = "fg:red bold"
+success_style = "fg:green bold"
+format = '[$symbol ]($style)'
+symbol = "✘"
+success_symbol = "✔"
+map_symbol = true
+not_executable_symbol = "🚫"
+not_found_symbol = "🔍"
+sigint_symbol = "💥"
+signal_symbol = "⚡"
+disabled = false
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
