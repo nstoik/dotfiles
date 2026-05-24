@@ -180,6 +180,10 @@ set-title-preexec() {
 if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
   znap source romkatv/powerlevel10k
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-else
+elif command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
+else
+  echo "[dotfiles] starship not found — falling back to p10k. Install: curl -sS https://starship.rs/install.sh | sh" >&2
+  znap source romkatv/powerlevel10k
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 fi
