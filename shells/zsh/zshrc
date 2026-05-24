@@ -20,7 +20,7 @@ mkdir -p "$ZSH_CACHE_DIR/completions"
 
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
 
-# Show MOTD in WSL (must be before p10k instant prompt to avoid console output warning)
+# Show MOTD in WSL
 if grep -qi microsoft /proc/version 2>/dev/null; then
   if [[ -d /etc/update-motd.d ]]; then
     run-parts /etc/update-motd.d/ 2>/dev/null
@@ -28,16 +28,6 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
     cat /etc/motd
   fi
 fi
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Recommended by p10k for faster prompt
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # OS-specific PATH additions
 if [[ -f /etc/os-release ]]; then
@@ -112,7 +102,6 @@ zstyle ':completion:*:ssh:*' known-hosts-files ~/.ssh/known_hosts ~/.ssh/known_h
 znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
-znap source romkatv/powerlevel10k
 if grep -qi microsoft /proc/version 2>/dev/null; then
   znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,sudo,history}
 else
@@ -172,5 +161,5 @@ set-title-preexec() {
   echo -ne "\033]0;$title\007"
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To install starship: curl -sS https://starship.rs/install.sh | sh
+eval "$(starship init zsh)"

@@ -6,4 +6,5 @@ git
 ssh
 ssh-authorized
 ssh-known-hosts-ansible
+starship
 zsh
