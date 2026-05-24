@@ -1,6 +1,16 @@
 # Claude Code Configuration
 
-This directory is managed by dotbot via `meta/configs/claude.yaml`. Files are symlinked into `~/.claude/`.
+The [claude config](../meta/configs/claude.yaml) will:
+* Create `~/.claude/` if it doesn't exist
+* Clean broken symlinks from `~/.claude/`
+* Link the following files:
+  * [settings.json](../claude/settings.json) to `~/.claude/settings.json`
+  * [CLAUDE.md](../claude/CLAUDE.md) to `~/.claude/CLAUDE.md`
+  * [statusline-command.sh](../claude/statusline-command.sh) to `~/.claude/statusline-command.sh`
+
+The `statusline-command.sh` script requires the following tools on your `PATH`:
+* `git` (for repository status)
+* `jq` (for JSON parsing)
 
 ## Files
 
@@ -11,7 +21,7 @@ This directory is managed by dotbot via `meta/configs/claude.yaml`. Files are sy
 | `statusline-command.sh` | `~/.claude/statusline-command.sh` | Status line command |
 | `skills/` | `~/.claude/skills/` | Personal skills available across all projects |
 
-## skills/
+## Skills
 
 | Skill | Description |
 |-------|-------------|
