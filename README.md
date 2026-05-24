@@ -13,7 +13,7 @@ chmod +x meta/dotbot/bin/dotbot
 
 `uninstall-profile` requires Python 3 and PyYAML:
 ```bash
-pipx install pyyaml
+pip install --user pyyaml
 ```
 
 After pulling updates, sync submodules:

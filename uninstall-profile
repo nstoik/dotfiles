@@ -8,7 +8,7 @@ import sys
 try:
     import yaml
 except ImportError:
-    print("Error: PyYAML is required. Install with: pipx install pyyaml", file=sys.stderr)
+    print("Error: PyYAML is required. Install with: pip install --user pyyaml", file=sys.stderr)
     sys.exit(1)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

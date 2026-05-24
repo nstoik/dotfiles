@@ -15,7 +15,7 @@ cd dotfiles
 sudo chmod +x install-profile install-standalone uninstall-profile
 ```
 
-`uninstall-profile` requires Python 3 and PyYAML (`pipx install pyyaml`).
+`uninstall-profile` requires Python 3 and PyYAML (`pip install --user pyyaml`).
 
 After pulling updates, sync submodules:
 ```bash
