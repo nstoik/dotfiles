@@ -14,7 +14,6 @@ from PIL import Image
 # Define which extensions to treat as photo files
 IMAGE_EXTENSIONS = {
     '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp',
-    '.cr2', '.nef', '.arw', '.dng', '.orf', '.rw2', '.sr2'
 }
 
 
