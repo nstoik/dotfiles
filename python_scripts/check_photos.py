@@ -2,6 +2,8 @@
 
 Usage: python check_photos.py <directory>
 
+Requirements: pip install Pillow
+
 To make it work in WSL from my Windows machine, you need to first map the
 directory you want to scan to a WSL path.
 Example: sudo mount -t drvfs 'Z:' /mnt/z
