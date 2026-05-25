@@ -8,6 +8,7 @@ Example: sudo mount -t drvfs 'Z:' /mnt/z
 """
 
 import os
+import sys
 from PIL import Image
 
 # Define which extensions to treat as photo files
@@ -42,7 +43,7 @@ def scan_directory_for_images(directory):
 
     if not os.path.isdir(directory):
         print(f"The path {directory} is not a valid directory.")
-        return
+        sys.exit(1)
 
     for root, _, files in os.walk(directory):
         for filename in files:
