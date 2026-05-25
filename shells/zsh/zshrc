@@ -1,7 +1,29 @@
-# Download Znap, if it's not there yet.
+# Load local overrides first (not tracked in dotfiles).
+# Set PROMPT_THEME=p10k here to switch to Powerlevel10k.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Show MOTD in WSL — must run before p10k instant prompt (no console output allowed after it).
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  if [[ -d /etc/update-motd.d ]]; then
+    run-parts /etc/update-motd.d/ 2>/dev/null
+  elif [[ -f /etc/motd ]]; then
+    cat /etc/motd
+  fi
+fi
+
+# Download Znap, if it's not there yet. Must run before p10k instant prompt —
+# the git clone produces output that would trigger p10k's initialization warning.
 [[ -f ~/.Git/zsh-snap/znap.zsh ]] ||
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/.Git/zsh-snap
+
+# Powerlevel10k instant prompt — must be near the top of .zshrc, before any output.
+# Only active when PROMPT_THEME=p10k.
+if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+fi
 
 # Ollama - LAN IP of Windows desktop; works from WSL2, laptop, or any LAN host
 : "${OLLAMA_BASE_URL:=http://10.10.1.100:11434}"
@@ -19,25 +41,6 @@ export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 mkdir -p "$ZSH_CACHE_DIR/completions"
 
 source ~/.Git/zsh-snap/znap.zsh  # Start Znap
-
-# Show MOTD in WSL (must be before p10k instant prompt to avoid console output warning)
-if grep -qi microsoft /proc/version 2>/dev/null; then
-  if [[ -d /etc/update-motd.d ]]; then
-    run-parts /etc/update-motd.d/ 2>/dev/null
-  elif [[ -f /etc/motd ]]; then
-    cat /etc/motd
-  fi
-fi
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Recommended by p10k for faster prompt
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # OS-specific PATH additions
 if [[ -f /etc/os-release ]]; then
@@ -69,7 +72,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 if grep -qi microsoft /proc/version 2>/dev/null; then
   export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
 
-  if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
+  if ! pgrep -f "socat.*agent\.sock" > /dev/null 2>&1; then
     rm -f "$SSH_AUTH_SOCK"
     (setsid socat UNIX-LISTEN:"$SSH_AUTH_SOCK",fork \
       EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) \
@@ -112,7 +115,6 @@ zstyle ':completion:*:ssh:*' known-hosts-files ~/.ssh/known_hosts ~/.ssh/known_h
 znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
-znap source romkatv/powerlevel10k
 if grep -qi microsoft /proc/version 2>/dev/null; then
   znap source ohmyzsh/ohmyzsh lib/{functions,git}.zsh plugins/{docker,docker-compose,git,sudo,history}
 else
@@ -172,5 +174,16 @@ set-title-preexec() {
   echo -ne "\033]0;$title\007"
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Prompt — switch with PROMPT_THEME=p10k in ~/.zshrc.local (default: starship)
+# To install starship: curl -sS https://starship.rs/install.sh | sh
+# To install p10k:     znap source romkatv/powerlevel10k (handled below)
+if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
+  znap source romkatv/powerlevel10k
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+elif command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  echo "[dotfiles] starship not found — falling back to p10k. Install: curl -sS https://starship.rs/install.sh | sh" >&2
+  znap source romkatv/powerlevel10k
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+fi

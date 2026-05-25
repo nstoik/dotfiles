@@ -15,7 +15,7 @@ cd dotfiles
 sudo chmod +x install-profile install-standalone uninstall-profile
 ```
 
-`uninstall-profile` requires Python 3 and PyYAML (`pipx install pyyaml`).
+`uninstall-profile` requires Python 3 and PyYAML (`pip install --user pyyaml`).
 
 After pulling updates, sync submodules:
 ```bash
@@ -53,7 +53,7 @@ All install commands are safe to run multiple times (`relink: true` is set globa
 
 | Config | Source | Destination |
 |--------|--------|-------------|
-| `zsh.yaml` | `shells/zsh/zshrc`, `shells/zsh/p10k.zsh` | `~/.zshrc`, `~/.p10k.zsh` |
+| `zsh.yaml` | `shells/zsh/zshrc`, `shells/zsh/p10k.zsh`, `shells/starship/starship.toml` | `~/.zshrc`, `~/.p10k.zsh`, `~/.config/starship.toml` |
 | `bash.yaml` | `shells/bash/bashrc` | `~/.bashrc` |
 | `git.yaml` | `tools/git/gitconfig` | `~/.gitconfig` |
 | `ssh.yaml` | `ssh/config`, `ssh/known_hosts_fixed` | `~/.ssh/config`, `~/.ssh/known_hosts_fixed` |
@@ -64,7 +64,9 @@ All install commands are safe to run multiple times (`relink: true` is set globa
 
 ### Zsh Setup
 
-The zshrc uses [zsh-snap](https://github.com/marlonrichert/zsh-snap) as a plugin manager that auto-downloads plugins on first use. Plugins include: Powerlevel10k (prompt), zsh-autocomplete, zsh-autosuggestions, zsh-syntax-highlighting, and oh-my-zsh plugins (docker, git, sudo, history).
+The zshrc uses [zsh-snap](https://github.com/marlonrichert/zsh-snap) as a plugin manager that auto-downloads plugins on first use. Plugins include: zsh-autocomplete, zsh-autosuggestions, zsh-syntax-highlighting, and oh-my-zsh plugins (docker, git, sudo, history).
+
+**Prompt theme**: Defaults to [Starship](https://starship.rs/) (`shells/starship/starship.toml`, catppuccin-mocha theme). Switch to [Powerlevel10k](https://github.com/romkatv/powerlevel10k) by setting `PROMPT_THEME=p10k` in `~/.zshrc.local`. Both themes require a Nerd Font — JetBrainsMono Nerd Font Mono is recommended.
 
 **WSL2 Bitwarden SSH Agent Bridge**: On WSL2 hosts, zshrc bridges the Bitwarden Desktop SSH agent via `socat` + `npiperelay.exe` instead of the omz `ssh-agent` plugin. Prerequisites: `socat` installed in WSL2, `npiperelay.exe` on the Windows PATH, Bitwarden Desktop with SSH agent enabled.
 
