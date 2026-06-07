@@ -2,6 +2,13 @@
 # Set PROMPT_THEME=p10k here to switch to Powerlevel10k.
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
+# If starship is missing and no explicit theme override, fall back to p10k now so
+# the instant-prompt block below and the loader at the bottom share the same path.
+if [[ "${PROMPT_THEME:-starship}" == "starship" ]] && ! command -v starship &>/dev/null; then
+  PROMPT_THEME=p10k
+  echo "[dotfiles] starship not found — using p10k. Install: curl -sS https://starship.rs/install.sh | sh" >&2
+fi
+
 # Show MOTD in WSL — must run before p10k instant prompt (no console output allowed after it).
 if grep -qi microsoft /proc/version 2>/dev/null; then
   if [[ -d /etc/update-motd.d ]]; then
@@ -184,10 +191,6 @@ command -v trip &>/dev/null && alias traceroute=trip
 if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
   znap source romkatv/powerlevel10k
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-elif command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
 else
-  echo "[dotfiles] starship not found — falling back to p10k. Install: curl -sS https://starship.rs/install.sh | sh" >&2
-  znap source romkatv/powerlevel10k
-  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+  eval "$(starship init zsh)"
 fi
