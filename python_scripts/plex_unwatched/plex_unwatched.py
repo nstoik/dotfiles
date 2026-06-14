@@ -503,7 +503,7 @@ def render_summary(movies: list, shows: list,
     show_line = (
         f"[bold cyan]TV Shows[/] Shows: [cyan]{total_shows}[/]  "
         f"Seasons: [cyan]{total_seasons}[/]  "
-        f"Unwatched eps: [red]{never_eps}[/]  "
+        f"Unwatched/partial eps: [red]{never_eps}[/]  "
         f"Size on disk (filtered): [green]{fmt_size(total_show_size)}[/]"
     )
 
