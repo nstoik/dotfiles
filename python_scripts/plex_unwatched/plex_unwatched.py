@@ -484,7 +484,7 @@ def render_summary(movies: list, shows: list,
                    movie_filters: list[str] | None = None,
                    show_filters: list[str] | None = None) -> None:
     total_movie_size  = sum(m["size_bytes"] for m in movies)
-    total_show_size   = sum(s["never_watched_size"] + s["partial_size"] for s in shows)
+    total_show_size   = sum(s["total_size"] for s in shows)
     never_movies      = sum(1 for m in movies if m["never_watched"])
     partial_movies    = sum(1 for m in movies if m["partially_watched"])
     watched_movies    = sum(1 for m in movies if m["fully_watched"])
@@ -496,13 +496,13 @@ def render_summary(movies: list, shows: list,
         f"[bold cyan]Movies[/]   Never watched: [red]{never_movies}[/]  "
         f"Partial: [yellow]{partial_movies}[/]  "
         f"Watched: [dim green]{watched_movies}[/]  "
-        f"Reclaimable space: [green]{fmt_size(total_movie_size)}[/]"
+        f"Size on disk (filtered): [green]{fmt_size(total_movie_size)}[/]"
     )
     show_line = (
         f"[bold cyan]TV Shows[/] Shows: [cyan]{total_shows}[/]  "
         f"Seasons: [cyan]{total_seasons}[/]  "
         f"Unwatched eps: [red]{never_eps}[/]  "
-        f"Reclaimable space: [green]{fmt_size(total_show_size)}[/]"
+        f"Size on disk (filtered): [green]{fmt_size(total_show_size)}[/]"
     )
 
     lines = [movie_line]
