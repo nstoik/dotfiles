@@ -2,6 +2,8 @@
 """
 plex_unwatched.py — Analyze Plex media for unwatched/least-watched content.
 
+Requires Python 3.10+ (uses X | Y union type syntax).
+
 Sources:
   - Tautulli API  : watch history, play counts, max progress per item
   - Plex API      : current file sizes and metadata (always live, bypasses Tdarr staleness)
