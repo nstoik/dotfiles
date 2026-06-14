@@ -480,24 +480,39 @@ def analyze_shows(episodes: list, history: dict,
 
 # ── Rendering ─────────────────────────────────────────────────────────────────
 
-def render_summary(movies: list, shows: list) -> None:
+def render_summary(movies: list, shows: list,
+                   movie_filters: list[str] | None = None,
+                   show_filters: list[str] | None = None) -> None:
     total_movie_size  = sum(m["size_bytes"] for m in movies)
     total_show_size   = sum(s["never_watched_size"] + s["partial_size"] for s in shows)
     never_movies      = sum(1 for m in movies if m["never_watched"])
     partial_movies    = sum(1 for m in movies if m["partially_watched"])
     watched_movies    = sum(1 for m in movies if m["fully_watched"])
     never_eps         = sum(s["never_watched_count"] + s["partial_count"] for s in shows)
+    total_shows       = len(shows)
+    total_seasons     = sum(len(s["seasons"]) for s in shows)
 
-    lines = [
+    movie_line = (
         f"[bold cyan]Movies[/]   Never watched: [red]{never_movies}[/]  "
         f"Partial: [yellow]{partial_movies}[/]  "
         f"Watched: [dim green]{watched_movies}[/]  "
-        f"Reclaimable space: [green]{fmt_size(total_movie_size)}[/]",
-        f"[bold cyan]TV Shows[/] Unwatched eps: [red]{never_eps}[/]  "
-        f"Reclaimable space: [green]{fmt_size(total_show_size)}[/]",
-        "",
-        f"[dim]File sizes sourced live from Plex API — always current post-Tdarr.[/]",
-    ]
+        f"Reclaimable space: [green]{fmt_size(total_movie_size)}[/]"
+    )
+    show_line = (
+        f"[bold cyan]TV Shows[/] Shows: [cyan]{total_shows}[/]  "
+        f"Seasons: [cyan]{total_seasons}[/]  "
+        f"Unwatched eps: [red]{never_eps}[/]  "
+        f"Reclaimable space: [green]{fmt_size(total_show_size)}[/]"
+    )
+
+    lines = [movie_line]
+    if movie_filters:
+        lines.append(f"  [dim]Filters: {' · '.join(movie_filters)}[/]")
+    lines.append(show_line)
+    if show_filters:
+        lines.append(f"  [dim]Filters: {' · '.join(show_filters)}[/]")
+    lines += ["", "[dim]File sizes sourced live from Plex API — always current post-Tdarr.[/]"]
+
     console.print(Panel("\n".join(lines), title="Summary",
                         border_style="bright_blue"))
 
@@ -698,8 +713,25 @@ def main() -> None:
         movies = [m for m in movies if m["last_watched"] == 0 or m["last_watched"] < cutoff]
         shows  = [s for s in shows  if s["last_watched"] == 0 or s["last_watched"] < cutoff]
 
+    # Build filter descriptions for summary
+    movie_filters: list[str] = []
+    show_filters: list[str] = []
+    if args.min_size:
+        movie_filters.append(f"min size {args.min_size} MB")
+        show_filters.append(f"min size {args.min_size} MB")
+    if args.movie_max_plays is not None:
+        movie_filters.append(f"max {args.movie_max_plays} plays")
+    if args.show_max_watched_pct is not None:
+        show_filters.append(f"max {args.show_max_watched_pct}% watched")
+    if args.ignore_recent_days is not None:
+        recent_label = f"no activity in last {args.ignore_recent_days} days"
+        movie_filters.append(recent_label)
+        show_filters.append(recent_label)
+
     # Render
-    render_summary(movies, shows)
+    render_summary(movies, shows,
+                   movie_filters=movie_filters or None,
+                   show_filters=show_filters or None)
     console.print()
 
     if not args.shows_only:
