@@ -573,14 +573,13 @@ def render_shows_table(shows: list, top: int) -> None:
         pct_color = "red" if pct >= 75 else "yellow" if pct >= 25 else "dim"
         unwatched = s["never_watched_count"] + s["partial_count"]
 
+        seasons = s["unwatched_seasons"]
         if pct >= 100:
-            season_str = "—"
+            season_str = "All"
+        elif len(seasons) > 5:
+            season_str = ", ".join(f"S{n}" for n in seasons[:4]) + f" (+{len(seasons)-4} more)"
         else:
-            seasons = s["unwatched_seasons"]
-            if len(seasons) > 5:
-                season_str = ", ".join(f"S{n}" for n in seasons[:4]) + f" (+{len(seasons)-4} more)"
-            else:
-                season_str = ", ".join(f"S{n}" for n in seasons) or "—"
+            season_str = ", ".join(f"S{n}" for n in seasons) or "—"
 
         table.add_row(
             s["title"],
