@@ -192,5 +192,5 @@ if [[ "${PROMPT_THEME:-starship}" == "p10k" ]]; then
   znap source romkatv/powerlevel10k
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 else
-  eval "$(starship init zsh)"
+  eval "$(starship init zsh)"  # starship guaranteed present — fallback to p10k was set above if missing
 fi
