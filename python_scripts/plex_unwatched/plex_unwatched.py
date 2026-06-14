@@ -681,10 +681,6 @@ def main() -> None:
     history = fetch_tautulli_history(tautulli_session, cfg["tautulli_url"], cfg["tautulli_key"])
     console.print(f"  [dim]→ {len(history)} items with watch history[/]\n")
 
-    exclude_libraries = args.exclude_libraries or DEFAULT_EXCLUDE_LIBRARIES
-    if exclude_libraries:
-        console.print(f"[bold]Excluding libraries:[/] {', '.join(exclude_libraries)}\n")
-
     raw_movies, raw_episodes = fetch_all_plex_media(
         plex_session, cfg["plex_url"], cfg["plex_token"],
         exclude_libraries=exclude_libraries,
