@@ -52,7 +52,6 @@ DEFAULT_MIN_SIZE_MB = 0
 PLEX_PAGE_SIZE = 1000
 TAUTULLI_PAGE_SIZE = 1000
 DEFAULT_EXCLUDE_LIBRARIES = ["Sports"]
-ENV_FILE = Path(".env")
 
 console = Console()
 
@@ -74,18 +73,18 @@ def load_env_file(path: Path) -> dict:
     return env
 
 
-def resolve_config(args: argparse.Namespace) -> dict:
+def resolve_config(args: argparse.Namespace, env_file: Path) -> dict:
     """
     Merge config from CLI > .env file > environment variables.
     Returns a dict with plex_url, plex_token, tautulli_url, tautulli_key.
     """
-    env_file = load_env_file(ENV_FILE)
+    env_vars = load_env_file(env_file)
 
     def get(cli_val, env_key):
         if cli_val:
             return cli_val
-        if env_key in env_file:
-            return env_file[env_key]
+        if env_key in env_vars:
+            return env_vars[env_key]
         return os.environ.get(env_key, "")
 
     return {
@@ -171,7 +170,6 @@ def fetch_tautulli_history(
     """
     history: dict[str, dict] = {}
     start = 0
-    page_size = TAUTULLI_PAGE_SIZE
 
     with Progress(
         SpinnerColumn(),
@@ -188,7 +186,7 @@ def fetch_tautulli_history(
                 api_key,
                 "get_history",
                 {
-                    "length": page_size,
+                    "length": TAUTULLI_PAGE_SIZE,
                     "start": start,
                     "media_type": "movie,episode",
                 },
@@ -317,6 +315,16 @@ def fetch_plex_libraries(
     ]
 
 
+def _sum_part_sizes(video: ET.Element) -> int:
+    size = 0
+    for part in video.findall(".//Part"):
+        try:
+            size += int(part.get("size", 0))
+        except (ValueError, TypeError):
+            pass
+    return size
+
+
 def fetch_plex_movies(
     session: requests.Session,
     base_url: str,
@@ -336,18 +344,12 @@ def fetch_plex_movies(
         progress=progress,
         description=description,
     ):
-        size = 0
-        for part in video.findall(".//Part"):
-            try:
-                size += int(part.get("size", 0))
-            except (ValueError, TypeError):
-                pass
         movies.append(
             {
                 "rating_key": video.get("ratingKey", ""),
                 "title": video.get("title", "Unknown"),
                 "year": video.get("year", "—"),
-                "size_bytes": size,
+                "size_bytes": _sum_part_sizes(video),
             }
         )
     return movies
@@ -373,12 +375,6 @@ def fetch_plex_episodes(
         progress=progress,
         description=description,
     ):
-        size = 0
-        for part in video.findall(".//Part"):
-            try:
-                size += int(part.get("size", 0))
-            except (ValueError, TypeError):
-                pass
         episodes.append(
             {
                 "rating_key": video.get("ratingKey", ""),
@@ -387,7 +383,7 @@ def fetch_plex_episodes(
                 "grandparent_key": video.get("grandparentRatingKey", ""),
                 "season_num": video.get("parentIndex", "?"),
                 "ep_num": video.get("index", "?"),
-                "size_bytes": size,
+                "size_bytes": _sum_part_sizes(video),
             }
         )
     return episodes
@@ -771,10 +767,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    global ENV_FILE
-    ENV_FILE = Path(args.env_file)
-
-    cfg = resolve_config(args)
+    env_file = Path(args.env_file)
+    cfg = resolve_config(args, env_file)
 
     missing = [k for k, v in cfg.items() if not v]
     if missing:
@@ -800,8 +794,8 @@ def main() -> None:
     )
     console.print(f"[bold]Top results:[/]               {args.top}")
     console.print(
-        f"[bold]Env file:[/]                  {ENV_FILE}"
-        f" ({'found' if ENV_FILE.exists() else 'not found'})"
+        f"[bold]Env file:[/]                  {env_file}"
+        f" ({'found' if env_file.exists() else 'not found'})"
     )
     if args.min_size:
         console.print(f"[bold]Min size:[/]                  {args.min_size} MB")
@@ -889,8 +883,8 @@ def main() -> None:
     render_summary(
         movies,
         shows,
-        movie_filters=movie_filters or None,
-        show_filters=show_filters or None,
+        movie_filters=movie_filters,
+        show_filters=show_filters,
     )
     console.print()
 
