@@ -11,11 +11,18 @@ Example: sudo mount -t drvfs 'Z:' /mnt/z
 
 import os
 import sys
+
 from PIL import Image
 
 # Define which extensions to treat as photo files
 IMAGE_EXTENSIONS = {
-    '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp',
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".tiff",
+    ".webp",
 }
 
 
