@@ -62,9 +62,10 @@ else
 fi
 trunc_dir=$(printf '%s' "$short_dir" | awk -F'/' '{
   n = NF
+  if ($1 == "") n = n - 1
   if (n <= 3) { print; next }
   out = "\xe2\x80\xa6"
-  for (i = n - 2; i <= n; i++) out = out "/" $i
+  for (i = NF - 2; i <= NF; i++) out = out "/" $i
   print out
 }')
 
