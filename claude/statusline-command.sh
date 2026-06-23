@@ -3,10 +3,13 @@
 # (catppuccin-mocha palette): user@host | dir | git | model | ctx% | time
 input=$(cat)
 
-# Single jq call extracting every field via TSV, instead of one echo|jq fork per field
+# Single jq call extracting every field via TSV, instead of one echo|jq fork per field.
+# Backslashes in the two string fields are doubled so the final `printf '%b'`
+# render step treats them as literal text instead of escape sequences (the
+# numeric fields below can't contain backslashes, so gsub only applies to these two).
 tsv=$(printf '%s' "$input" | jq -r '[
-  .workspace.current_dir,
-  .model.display_name,
+  (.workspace.current_dir | gsub("\\\\"; "\\\\")),
+  (.model.display_name | gsub("\\\\"; "\\\\")),
   (.context_window.used_percentage // ""),
   (.rate_limits.five_hour.used_percentage // ""),
   (.rate_limits.five_hour.resets_at // ""),
@@ -85,7 +88,10 @@ seg "$BG_PEACH" "$trunc_dir" "$FG_PEACH"
 
 # git branch and dirty status (skip optional locks). symbolic-ref/rev-parse
 # already fail outside a repo, so no separate rev-parse --git-dir probe is needed.
+# git itself rejects backslashes in ref names, but double any anyway (defense
+# in depth) so the final `printf '%b'` render step can't reinterpret them.
 if branch=$(git -C "$dir" symbolic-ref --short HEAD 2>/dev/null || git -C "$dir" rev-parse --short HEAD 2>/dev/null) && [ -n "$branch" ]; then
+  branch=$(printf '%s' "$branch" | sed 's/\\/\\\\/g')
   dirty=$(git --no-optional-locks -C "$dir" status --porcelain 2>/dev/null | head -1)
   if [ -n "$dirty" ]; then
     star=" *"
