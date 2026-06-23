@@ -26,6 +26,8 @@ FG_CRUST="\033[38;2;17;17;27m"
 RESET="\033[0m"
 
 ARROW=""
+ROUND_LEFT=""
+ROUND_RIGHT=""
 
 # Shorten home directory to ~, then truncate to last 3 path components
 home_dir="$HOME"
@@ -43,8 +45,11 @@ trunc_dir=$(printf '%s' "$short_dir" | awk -F'/' '{
   print out
 }')
 
-# user@host (host only shown over SSH, matching starship'\''s ssh_only hostname)
-line="${BG_RED}${FG_CRUST}  ${user}"
+# rounded head cap
+# user@host (host only shown over SSH, matching the starship hostname behavior)
+line="${FG_RED}${ROUND_LEFT}${RESET}"
+
+line="${line}${BG_RED}${FG_CRUST}  ${user}"
 if [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]; then
   line="${line}@${host}"
 fi
@@ -123,7 +128,7 @@ if [ -n "$seven_d_pct" ]; then
   prev_fg="$FG_PINK"
 fi
 
-# closing arrow fading to terminal background
-line="${line}${prev_fg}${ARROW}${RESET}"
+# rounded tail cap
+line="${line}${prev_fg}${ROUND_RIGHT}${RESET}"
 
 printf '%b\n' "$line"
