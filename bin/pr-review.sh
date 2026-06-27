@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+# pr-review.sh - Review a GitHub pull request using a local Ollama model
+#
+# Usage: pr-review.sh <PR_NUMBER> [-- ':!<glob>' ...]
+#
+# Arguments:
+#   PR_NUMBER      GitHub pull request number
+#   -- ':!<glob>'  Exclude files matching glob from the diff (repeatable)
+#                  Examples: ':!*.json'  ':!package-lock.json'
+#
+# Environment variables:
+#   OLLAMA_BASE_URL  Base URL of the Ollama API (required)
+#   OLLAMA_MODEL     Model to use (default: qwen2.5-coder:14b)
+#   PROMPTS_DIR      Directory containing pr-review.md prompt (default: ~/ai/prompts)
 set -euo pipefail
 
 OLLAMA_BASE_URL="${OLLAMA_BASE_URL:?OLLAMA_BASE_URL not set — export it in zshrc}"
