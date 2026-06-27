@@ -14,7 +14,7 @@ if ! command -v gh &>/dev/null; then
 fi
 
 if [[ -z "${1:-}" ]]; then
-  echo "Usage: pr-review.sh <PR_NUMBER>" >&2
+  echo "Usage: pr-review.sh <PR_NUMBER> [-- ':!<glob>' ...]" >&2
   exit 1
 fi
 
@@ -28,9 +28,26 @@ if [[ ! -f "$PROMPT_FILE" ]]; then
   exit 1
 fi
 
+# Parse ':!glob' exclusion args into filterdiff --exclude flags
+EXCLUDE_ARGS=()
+for arg in "$@"; do
+  if [[ "$arg" == ":!"* ]]; then
+    EXCLUDE_ARGS+=("--exclude=${arg#:!}")
+  fi
+done
+
 DIFF_FILE=$(mktemp)
 trap "rm -f '$DIFF_FILE'" EXIT
-gh pr diff "$PR_NUMBER" > "$DIFF_FILE"
+
+if [[ ${#EXCLUDE_ARGS[@]} -gt 0 ]]; then
+  if ! command -v filterdiff &>/dev/null; then
+    echo "Error: filterdiff is required for file exclusion. Install with: sudo apt install patchutils" >&2
+    exit 1
+  fi
+  gh pr diff "$PR_NUMBER" | filterdiff "${EXCLUDE_ARGS[@]}" > "$DIFF_FILE"
+else
+  gh pr diff "$PR_NUMBER" > "$DIFF_FILE"
+fi
 
 SECONDS=0
 jq -n \
