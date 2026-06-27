@@ -18,9 +18,9 @@ models:
       - chat
       - edit
       - apply
-  - name: Qwen3 8B
+  - name: Qwen3.6 35B-A3B
     provider: ollama
-    model: qwen3:8b
+    model: qwen3.6:35b-a3b
     apiBase: http://10.10.1.100:11434
     roles:
       - chat
