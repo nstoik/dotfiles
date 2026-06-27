@@ -18,6 +18,9 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
+PR_NUMBER="$1"
+shift
+
 PROMPTS_DIR="${PROMPTS_DIR:-$HOME/ai/prompts}"
 PROMPT_FILE="$PROMPTS_DIR/pr-review.md"
 if [[ ! -f "$PROMPT_FILE" ]]; then
@@ -25,17 +28,18 @@ if [[ ! -f "$PROMPT_FILE" ]]; then
   exit 1
 fi
 
-DIFF=$(gh pr diff "$1")
-SYSTEM_PROMPT=$(cat "$PROMPT_FILE")
+DIFF_FILE=$(mktemp)
+trap "rm -f '$DIFF_FILE'" EXIT
+gh pr diff "$PR_NUMBER" > "$DIFF_FILE"
 
 SECONDS=0
-curl -s "${OLLAMA_BASE_URL}/api/generate" \
-  -d "$(jq -n \
-    --arg model "$OLLAMA_MODEL" \
-    --arg system "$SYSTEM_PROMPT" \
-    --arg prompt "$DIFF" \
-    --argjson stream false \
-    '{model: $model, system: $system, prompt: $prompt, stream: $stream}')" \
-| jq -r '.response'
+jq -n \
+  --arg model "$OLLAMA_MODEL" \
+  --rawfile system "$PROMPT_FILE" \
+  --rawfile prompt "$DIFF_FILE" \
+  --argjson stream false \
+  '{model: $model, system: $system, prompt: $prompt, stream: $stream}' \
+| curl -s -H 'Content-Type: application/json' "${OLLAMA_BASE_URL}/api/generate" --data @- \
+| jq -r 'if .error then "Error: \(.error)" | halt_error(1) else .response end'
 echo "" >&2
 echo "Model: ${OLLAMA_MODEL}  Time: ${SECONDS}s" >&2
