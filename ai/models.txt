@@ -3,9 +3,10 @@
 # Lines starting with # and blank lines are ignored.
 
 deepseek-r1:8b
-llama3.1:8b
-llama3.2:latest
+devstral-small-2:24b
+llama3.2:3b
 nomic-embed-text:latest
 qwen2.5-coder:1.5b-base
 qwen2.5-coder:14b
+qwen3.6:35b-a3b
 qwen3.5:9b
