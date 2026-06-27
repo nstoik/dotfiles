@@ -58,7 +58,7 @@ if [[ ${#EXCLUDE_ARGS[@]} -gt 0 ]]; then
     echo "Error: filterdiff is required for file exclusion. Install with: sudo apt install patchutils" >&2
     exit 1
   fi
-  gh pr diff "$PR_NUMBER" | filterdiff "${EXCLUDE_ARGS[@]}"
+  gh pr diff "$PR_NUMBER" | filterdiff "${EXCLUDE_ARGS[@]}" || { echo "Error: filterdiff failed" >&2; exit 1; }
 else
   gh pr diff "$PR_NUMBER"
 fi > "$DIFF_FILE"
