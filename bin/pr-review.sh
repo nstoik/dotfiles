@@ -37,7 +37,8 @@ for arg in "$@"; do
 done
 
 DIFF_FILE=$(mktemp)
-trap "rm -f '$DIFF_FILE'" EXIT
+RESPONSE_FILE=$(mktemp)
+trap "rm -f '$DIFF_FILE' '$RESPONSE_FILE'" EXIT
 
 if [[ ${#EXCLUDE_ARGS[@]} -gt 0 ]]; then
   if ! command -v filterdiff &>/dev/null; then
@@ -49,6 +50,8 @@ else
   gh pr diff "$PR_NUMBER" > "$DIFF_FILE"
 fi
 
+printf "Reviewing PR #%s with %s " "$PR_NUMBER" "$OLLAMA_MODEL" >&2
+
 SECONDS=0
 jq -n \
   --arg model "$OLLAMA_MODEL" \
@@ -57,6 +60,18 @@ jq -n \
   --argjson stream false \
   '{model: $model, system: $system, prompt: $prompt, stream: $stream}' \
 | curl -s -H 'Content-Type: application/json' "${OLLAMA_BASE_URL}/api/generate" --data @- \
-| jq -r 'if .error then "Error: \(.error)" | halt_error(1) else .response end'
+> "$RESPONSE_FILE" &
+CURL_PID=$!
+
+SPINSTR='|/-\'
+while kill -0 "$CURL_PID" 2>/dev/null; do
+  printf "\rReviewing PR #%s with %s %s" "$PR_NUMBER" "$OLLAMA_MODEL" "${SPINSTR:0:1}" >&2
+  SPINSTR="${SPINSTR:1}${SPINSTR:0:1}"
+  sleep 0.2
+done
+wait "$CURL_PID"
+printf "\r\033[K" >&2
+
+jq -r 'if .error then "Error: \(.error)" | halt_error(1) else .response end' "$RESPONSE_FILE"
 echo "" >&2
 echo "Model: ${OLLAMA_MODEL}  Time: ${SECONDS}s" >&2
