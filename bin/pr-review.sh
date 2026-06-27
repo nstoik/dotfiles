@@ -51,19 +51,17 @@ done
 
 DIFF_FILE=$(mktemp)
 RESPONSE_FILE=$(mktemp)
-trap "rm -f '$DIFF_FILE' '$RESPONSE_FILE'" EXIT
+trap 'rm -f "$DIFF_FILE" "$RESPONSE_FILE"' EXIT
 
 if [[ ${#EXCLUDE_ARGS[@]} -gt 0 ]]; then
   if ! command -v filterdiff &>/dev/null; then
     echo "Error: filterdiff is required for file exclusion. Install with: sudo apt install patchutils" >&2
     exit 1
   fi
-  gh pr diff "$PR_NUMBER" | filterdiff "${EXCLUDE_ARGS[@]}" > "$DIFF_FILE"
+  gh pr diff "$PR_NUMBER" | filterdiff "${EXCLUDE_ARGS[@]}"
 else
-  gh pr diff "$PR_NUMBER" > "$DIFF_FILE"
-fi
-
-printf "Reviewing PR #%s with %s " "$PR_NUMBER" "$OLLAMA_MODEL" >&2
+  gh pr diff "$PR_NUMBER"
+fi > "$DIFF_FILE"
 
 SECONDS=0
 jq -n \
@@ -76,9 +74,10 @@ jq -n \
 > "$RESPONSE_FILE" &
 CURL_PID=$!
 
+SPIN_PREFIX="Reviewing PR #${PR_NUMBER} with ${OLLAMA_MODEL}"
 SPINSTR='|/-\'
 while kill -0 "$CURL_PID" 2>/dev/null; do
-  printf "\rReviewing PR #%s with %s %s" "$PR_NUMBER" "$OLLAMA_MODEL" "${SPINSTR:0:1}" >&2
+  printf "\r%s %s" "$SPIN_PREFIX" "${SPINSTR:0:1}" >&2
   SPINSTR="${SPINSTR:1}${SPINSTR:0:1}"
   sleep 0.2
 done
