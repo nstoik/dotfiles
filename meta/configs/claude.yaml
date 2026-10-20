@@ -11,6 +11,9 @@
     ~/.claude/CLAUDE.md:
       path: claude/CLAUDE.md
       relink: true
+    ~/.claude/keybindings.json:
+      path: claude/keybindings.json
+      relink: true
     ~/.claude/statusline-command.sh:
       path: claude/statusline-command.sh
       relink: true
