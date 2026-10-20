@@ -1,1 +1,4 @@
 .env
+
+# Claude Code auto-synced skills cache
+claude/skills/synced/

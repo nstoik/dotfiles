@@ -1,8 +1,4 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "sh ~/.claude/statusline-command.sh"
-  },
   "permissions": {
     "allow": [
       "Bash(gh pr view*)",
@@ -22,6 +18,47 @@
       "Bash(gh api -X GET repos/*/issues/*/comments*)",
       "Bash(gh api -X POST repos/*/pulls/*/comments/*/replies*)",
       "Bash(gh api -X POST repos/*/issues/*/comments*)"
+    ],
+    "defaultMode": "default"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "sh ~/.claude/statusline-command.sh"
+  },
+  "switchModelsOnFlag": false,
+  "useAutoModeDuringPlan": false,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured — personal GitHub account nstoik",
+      "**Cloud provider(s)**: Proxmox (homelab), DigitalOcean (cloud droplets, via DO_API_TOKEN)",
+      "**Repository visibility**: Mixed — most nstoik repos (including infrastructure and dotfiles) are PUBLIC, some are PRIVATE. Check with `gh repo view --json visibility` before assuming; any push to a public repo is publishing and confidential material is not safe to commit",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: Bitwarden (passwords, SSH keys via Bitwarden SSH agent). In ~/GitHub/infrastructure (nstoik/infrastructure, public): Ansible Vault (AES-256 encrypted, per-inventory vault.yaml, safe to commit); vault password files (vault_pass*.txt) are gitignored and stored in Bitwarden; a pre-commit hook blocks committing unencrypted vault files",
+      "**Default / protected branches**: main is the default branch; in infrastructure it is protected. Rulesets: none listed",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: Repos under ~/GitHub/ owned by github.com/nstoik and their origin remotes; pushing a repo's own work to its own origin is routine",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: .env files in any repo (gitignored secrets). In ~/GitHub/infrastructure (nstoik/infrastructure, public): inventories/*/group_vars/all/vault.yaml (encrypted vault, safe when encrypted, sensitive if ever decrypted); vault_pass*.txt (vault passwords, gitignored, stored in Bitwarden); files/traefik/traefik-prod.yaml.j2 and files/traefik/traefik-prod-no-file-provider.yaml (prod reverse-proxy config) — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any host, namespace, or inventory target whose name carries `prod`/`production` as a whole word or segment, including (in infrastructure) files/traefik/traefik-prod*.yaml(.j2) and the traefik prod static config",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod`/`production` as a whole word or segment (e.g. Proxmox/DigitalOcean resources tagged prod)",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development across personal repos — notably Ansible-based infrastructure-as-code (infrastructure) and Dotbot-managed dotfiles (dotfiles)",
+      "**Trusted repos**: repos under ~/GitHub/ whose origin is github.com/nstoik/* — only each repo's own work should be pushed to it; ported/foreign content is not its own work",
+      "**Org-specific CLIs**: ansible, ansible-playbook, ansible-lint, ansible-vault, ansible-galaxy, ansible-inventory (routine within infrastructure)",
+      "**Routine scripts**: In ~/GitHub/infrastructure (nstoik/infrastructure, public): scripts/setenv.sh, scripts/select-inventory.sh, scripts/git-init.sh. In ~/GitHub/dotfiles: install-profile, install-standalone, uninstall-profile"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(ansible-vault encrypt:*) — in infrastructure, scope to inventories/*/group_vars/all/vault.yaml with mismatched or missing --vault-id",
+      "Bash(ansible-playbook:*) targeting files/traefik/traefik-prod*.yaml(.j2) or any prod-tagged host/limit without explicit confirmation"
     ]
   }
 }
