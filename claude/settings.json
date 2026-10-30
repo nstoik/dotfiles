@@ -19,7 +19,7 @@
       "Bash(gh api -X POST repos/*/pulls/*/comments/*/replies*)",
       "Bash(gh api -X POST repos/*/issues/*/comments*)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "auto"
   },
   "statusLine": {
     "type": "command",
